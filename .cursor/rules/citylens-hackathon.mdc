@@ -1,0 +1,34 @@
+---
+description: CityLens Hackathon — bağlayıcı stack, KVKK, commit ve süreç kuralları
+alwaysApply: true
+---
+
+# CityLens — Hackathon Kuralları (bağlayıcı)
+
+Detaylı plan ve mimari için: `AI_HANDOFF.md`. Hedef nesne kullanıcı söyleyene kadar TBD.
+
+## Stack (sapma yok)
+- Web: **Next.js** → Vercel. Mobil: **ŞİMDİLİK YOK** (sadece web).
+- Backend: Go = **masterfabric-go** mimarisi. **Kendi mimarini KURMA.** (C:\Users\scadenza\Downloads\masterfabric-go-main\masterfabric-go-main dosya yolunda)
+`backend/.cursor/rules` konvansiyonlarına uy (Chi; DDD: domain→application→infrastructure; repository + DI; `NewXxx`; context ilk; error son + `%w` wrap; UUID; UTC). Yeni özellik = dikey dilim.
+- AI model & veri seti: **Hugging Face** (`transformers`/`datasets`). Başka kaynaktan model kurma.
+- Görsel kaynağı: Google Street View **Static** API (indirmeden önce `/metadata` ile kontrol = kota). Ayrıca şu an .env içinde GOOGLE_MAPS_API_KEY=AIzaS... api key'i mevcut.
+- Hosting: Vercel (web), Render (backend, Docker). Render: `SERVER_HOST=0.0.0.0`, `SERVER_PORT` Render portuyla eşleşsin.
+
+## KVKK (kırmızı çizgi — diskalifiye)
+- Sadece **cansız kentsel obje**. Yüz tanıma / plaka okuma / kimlik / profilleme / takip **YASAK**.
+- Model çalışmadan **ÖNCE** yüz (deface) ve plaka bulanıklaştırılır; **geri döndürülemez**.
+- Ham görsel **ASLA** git/public/şifresiz cloud'a. `.env` + `.gitignore` zorunlu.
+- Sonda ham görseller silinir + `docs/KVKK-IMHA.md` ile belgelenir.
+
+## Süreç (puanlı)
+- Secret'lar koda girmez; `NEXT_PUBLIC_` yalnızca **kısıtlı** tarayıcı anahtarı için.
+- Her değişiklikten sonra **derle/çalıştır ve doğrula** (`go build ./...`, `pnpm build`). Kapsamı küçük tut, önce uçtan uca.
+- **Demo asla canlı model çıkarımına bağımlı olmasın:** sonuçlar `detections.json`'dan servis edilir (tekrarlanabilirlik).
+
+## AI Adaptasyon (puanlı)
+- Cursor ruleset + agentic akış kullan. **Bonus:** Cursor **CLI & SDK** kullan ve README'de belgele.
+- README'de kullanılan AI araçları / prompt teknikleri / Cursor özellikleri — somut örneklerle.
+
+## Çıktı sözleşmesi
+`detections.json = [{ lat, lng, label, score, image_url }]`. Backend `GET /detections` (public, `/api/v1` dışı) ile servis eder; web haritada gösterir.
