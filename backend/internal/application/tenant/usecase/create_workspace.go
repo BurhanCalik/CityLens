@@ -40,6 +40,9 @@ func (uc *CreateWorkspaceUseCase) Execute(ctx context.Context, req dto.CreateWor
 	// Get organization from context
 	orgID, ok := middleware.OrgIDFromContext(ctx)
 	if !ok {
+		orgID, ok = middleware.TenantIDFromContext(ctx)
+	}
+	if !ok {
 		return nil, domainErr.New(domainErr.ErrUnauthorized, "organization context required", nil)
 	}
 

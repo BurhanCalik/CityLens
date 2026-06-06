@@ -1,41 +1,5 @@
 [
   {
-    "id": "0004",
-    "image": "0004.jpg",
-    "lat": 41.07501262022704,
-    "lng": 28.79348240785347,
-    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
-    "captured_at": "2025-08",
-    "category": "traffic_sign",
-    "label": "Trafik levhası",
-    "color": "#2dd4bf",
-    "score": 0.4186,
-    "box": [
-      432.7,
-      266.2,
-      459.0,
-      333.4
-    ]
-  },
-  {
-    "id": "0004",
-    "image": "0004.jpg",
-    "lat": 41.07501262022704,
-    "lng": 28.79348240785347,
-    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
-    "captured_at": "2025-08",
-    "category": "traffic_sign",
-    "label": "Trafik levhası",
-    "color": "#2dd4bf",
-    "score": 0.3335,
-    "box": [
-      466.0,
-      268.4,
-      486.0,
-      333.4
-    ]
-  },
-  {
     "id": "0006",
     "image": "0006.jpg",
     "lat": 41.07507548651802,
@@ -46,30 +10,7 @@
     "label": "Çöp / atık",
     "color": "#f97316",
     "score": 0.6151,
-    "box": [
-      478.3,
-      339.3,
-      638.7,
-      473.1
-    ]
-  },
-  {
-    "id": "0006",
-    "image": "0006.jpg",
-    "lat": 41.07507548651802,
-    "lng": 28.80269256832927,
-    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
-    "captured_at": "2022-07",
-    "category": "traffic_sign",
-    "label": "Trafik levhası",
-    "color": "#2dd4bf",
-    "score": 0.3108,
-    "box": [
-      123.7,
-      275.1,
-      144.2,
-      285.8
-    ]
+    "box": [478.3, 339.3, 638.7, 473.1]
   },
   {
     "id": "0007",
@@ -79,51 +20,10 @@
     "address": "Başak Mah., Başakşehir/İstanbul",
     "captured_at": "2025-08",
     "category": "traffic_sign",
-    "label": "Trafik levhası",
+    "label": "Kent levhası",
     "color": "#2dd4bf",
     "score": 0.4263,
-    "box": [
-      25.2,
-      234.7,
-      81.7,
-      282.4
-    ]
-  },
-  {
-    "id": "0014",
-    "image": "0014.jpg",
-    "lat": 41.0794266002617,
-    "lng": 28.78433610153325,
-    "address": "Şahintepe Mah., Başakşehir/İstanbul",
-    "captured_at": "2025-08",
-    "category": "traffic_sign",
-    "label": "Trafik levhası",
-    "color": "#2dd4bf",
-    "score": 0.4587,
-    "box": [
-      101.0,
-      353.0,
-      116.6,
-      370.3
-    ]
-  },
-  {
-    "id": "0016",
-    "image": "0016.jpg",
-    "lat": 41.07945162080983,
-    "lng": 28.79349432463634,
-    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
-    "captured_at": "2025-08",
-    "category": "traffic_sign",
-    "label": "Trafik levhası",
-    "color": "#2dd4bf",
-    "score": 0.3673,
-    "box": [
-      313.1,
-      340.1,
-      385.8,
-      357.9
-    ]
+    "box": [25.2, 234.7, 81.7, 282.4]
   },
   {
     "id": "0019",
@@ -136,84 +36,7 @@
     "label": "Reklam panosu",
     "color": "#a78bfa",
     "score": 0.4713,
-    "box": [
-      318.9,
-      166.2,
-      436.5,
-      217.2
-    ]
-  },
-  {
-    "id": "0019",
-    "image": "0019.jpg",
-    "lat": 41.07951500968888,
-    "lng": 28.80700284378417,
-    "address": "Başak Mah., Başakşehir/İstanbul",
-    "captured_at": "2020-09",
-    "category": "traffic_sign",
-    "label": "Trafik levhası",
-    "color": "#2dd4bf",
-    "score": 0.3179,
-    "box": [
-      577.6,
-      181.1,
-      630.5,
-      214.0
-    ]
-  },
-  {
-    "id": "0026",
-    "image": "0026.jpg",
-    "lat": 41.08403960396409,
-    "lng": 28.78462425505461,
-    "address": "Şahintepe Mah., Başakşehir/İstanbul",
-    "captured_at": "2025-08",
-    "category": "traffic_sign",
-    "label": "Trafik levhası",
-    "color": "#2dd4bf",
-    "score": 0.3362,
-    "box": [
-      210.9,
-      297.1,
-      221.7,
-      305.2
-    ]
-  },
-  {
-    "id": "0054",
-    "image": "0054.jpg",
-    "lat": 41.09297383399181,
-    "lng": 28.80232139059187,
-    "address": "Başak Mah., Başakşehir/İstanbul",
-    "captured_at": "2019-09",
-    "category": "traffic_sign",
-    "label": "Trafik levhası",
-    "color": "#2dd4bf",
-    "score": 0.3112,
-    "box": [
-      182.2,
-      308.2,
-      195.0,
-      316.5
-    ]
-  },
-  {
-    "id": "0062",
-    "image": "0062.jpg",
-    "lat": 41.09718144648308,
-    "lng": 28.78439889058592,
-    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
-    "captured_at": "2025-08",
-    "category": "garbage",
-    "label": "Çöp / atık",
-    "color": "#f97316",
-    "score": 0.3573,
-    "box": [
-      1.0,
-      265.2,
-      639.3,
-      532.5
-    ]
+    "box": [318.9, 166.2, 436.5, 217.2]
   },
   {
     "id": "0064",
@@ -226,30 +49,7 @@
     "label": "Reklam panosu",
     "color": "#a78bfa",
     "score": 0.4124,
-    "box": [
-      304.0,
-      235.6,
-      332.6,
-      308.2
-    ]
-  },
-  {
-    "id": "0075",
-    "image": "0075.jpg",
-    "lat": 41.10202954267009,
-    "lng": 28.78858622391822,
-    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
-    "captured_at": "2025-08",
-    "category": "traffic_sign",
-    "label": "Trafik levhası",
-    "color": "#2dd4bf",
-    "score": 0.3049,
-    "box": [
-      393.0,
-      313.7,
-      407.3,
-      322.6
-    ]
+    "box": [304.0, 235.6, 332.6, 308.2]
   },
   {
     "id": "0098",
@@ -262,29 +62,6 @@
     "label": "Çöp / atık",
     "color": "#f97316",
     "score": 0.6072,
-    "box": [
-      139.8,
-      328.1,
-      291.5,
-      400.4
-    ]
-  },
-  {
-    "id": "0098",
-    "image": "0098.jpg",
-    "lat": 41.1109089068654,
-    "lng": 28.78470465335107,
-    "address": "Kayaşehir Mah., Başakşehir/İstanbul",
-    "captured_at": "2023-08",
-    "category": "garbage",
-    "label": "Çöp / atık",
-    "color": "#f97316",
-    "score": 0.4465,
-    "box": [
-      0.1,
-      376.2,
-      62.5,
-      449.2
-    ]
+    "box": [139.8, 328.1, 291.5, 400.4]
   }
 ]

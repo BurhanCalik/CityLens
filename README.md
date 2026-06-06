@@ -1,136 +1,217 @@
-# CityLens 🏙️🔍
+# CityLens
 
-**AI Kentsel Kusur/Denetim Haritası — proaktif, çok kategorili belediye denetimi.** Google Street View sokak görüntülerinden **trafik levhası, reklam panosu ve atık** gibi kentsel objeleri Hugging Face görü modeliyle (Grounding DINO, zero-shot, çok kategorili) otomatik tespit eder, KVKK uyumlu biçimde anonimleştirir ve interaktif bir harita üzerinde belediyenin varlık yönetimi & saha ekipleri için sunar.
+**AI destekli kentsel denetim haritası.** CityLens, Başakşehir çevresindeki Google Street View görüntülerinden kent levhası, reklam panosu ve atık gibi cansız kentsel objeleri tespit eder; yüz/plaka mahremiyetini koruyarak anonim kanıt görselleri üretir ve sonuçları canlı bir harita üzerinde belediye saha ekipleri için önceliklendirir.
 
-> Cursor Istanbul Hackathon projesi. Tüm geliştirme Cursor IDE içinde, agentic ruleset ile yapılmıştır.
+> Cursor Hackathon: AI-Driven Kentsel Çözümler teslimidir. Geliştirme süreci Cursor IDE, agentic ruleset, Git commit geçmişi, Hugging Face modeli, Go backend, Next.js web ve Vercel/Render canlı demo akışıyla hazırlanmıştır.
 
----
+## Problem ve Fayda
 
-## 1. Problem ve Kamusal Fayda
-Bir belediyede **binlerce kentsel obje** vardır — trafik levhaları, reklam panoları, atık noktaları… Envanterleri çoğu zaman güncel değildir; eksik/devrilmiş levhalar, kaçak/izinsiz panolar veya birikmiş atık genelde ancak şikâyet sonrası fark edilir. Manuel saha taraması yavaş ve pahalıdır.
+Belediyelerde tabela, reklam panosu, atık noktası ve benzeri kentsel objelerin güncel envanterini tutmak zordur. Manuel saha gezileri maliyetlidir; sorunlar çoğu zaman vatandaş şikayetinden sonra fark edilir.
 
-CityLens, halihazırda var olan sokak görüntülerini tarayarak:
-- **Otomatik çok-kategorili envanter** çıkarır (trafik levhası, reklam panosu, atık) — her tespit: konum + kategori + güven skoru + **kutulu** anonim kanıt görseli; GIS / saha planlaması için hazır veri.
-- **Aday sorun haritası** üretir: düşük güvenli / atipik tespitler "insan doğrulaması gereken aday" (eksik/devrilmiş/görünürlüğü kapalı olabilir) olarak işaretlenir → **insan-döngüde, sorumlu AI**.
-- **Veri tabanlı karar:** tahmin değil, koordinatlı gerçek tespitler; tekrarlanabilir `detections.json`.
-- **KVKK:** yalnızca cansız obje; yüz/plaka, model çalışmadan önce geri döndürülemez biçimde bulanıklaştırılır.
+CityLens bu problemi veri odaklı çözer:
 
-## 2. Mimari
+- Street View üzerinden koordinatlı kentsel tarama yapar.
+- Model çıktısını insan-onaylı, yüksek güvenli demo setine indirger.
+- Her tespit için konum, kategori, skor ve kutulu anonim kanıt görseli üretir.
+- Ham görüntüleri kalıcı ürün çıktısına koymaz; final demo yalnızca anonim kanıtları ve `detections.json` dosyasını kullanır.
+- Belediye tarafında saha ekibine "nerede, ne var, kanıtı ne?" sorularının hızlı cevabını verir.
+
+## Canlı Demo Akışı
+
+Demo ekranı:
+
+- `web/` altında Next.js harita arayüzü.
+- Haritada kategori filtreleri, canlı/offline veri rozeti ve kanıt paneli bulunur.
+- Kanıt panelinde anonim Street View görseli, tespit kutusu, kategori, skor, adres ve koordinat gösterilir.
+- Web önce Render backend'e gider; backend soğuksa veya ulaşılamazsa paketlenmiş yerel `detections.json` ile harita boş kalmadan açılır.
+
+Demo verisi:
+
+- `ml/points.json` içindeki Başakşehir koordinatları Google Street View Static API ile tarandı.
+- 52 ham Street View görüntüsü indirildi.
+- Görseller anonimleştirildi.
+- Model çıktıları kalite kontrolünden geçirildi.
+- Final canlı demo için en net 5 kanıt tespiti bırakıldı: 2 atık, 2 reklam panosu, 1 kent levhası.
+
+## Sistem Nasıl Çalışıyor?
 
 ```mermaid
 flowchart LR
-  subgraph CV["ml/ — CV Pipeline (Hugging Face)"]
-    A["fetch.py<br/>Street View Static"] --> B["anonymize.py<br/>deface + Grounding DINO<br/>(yüz & plaka blur)"]
-    B --> C["detect.py<br/>Grounding DINO zero-shot"]
-    C --> D["export.py<br/>detections.json"]
-  end
-  D -->|"embed + dosya"| E["backend/ — Go (masterfabric)<br/>GET /detections"]
-  E -->|"HTTP (CORS *)"| F["web/ — Next.js harita<br/>pin + sayaç + kanıt paneli"]
-  D -.->|"offline fallback"| F
+  A["ml/points.json<br/>Başakşehir koordinatları"] --> B["fetch.py<br/>Google Street View metadata + image"]
+  B --> C["data/raw/<br/>geçici ham görüntüler"]
+  C --> D["anonymize.py<br/>deface + Grounding DINO blur backstop"]
+  D --> E["data/anon/<br/>anonim görüntüler"]
+  E --> F["detect.py<br/>Hugging Face Grounding DINO"]
+  F --> G["raw_detections.json<br/>model adayları"]
+  G --> H["export.py<br/>insan onaylı demo seti + kutulu kanıt"]
+  H --> I["backend embed JSON<br/>GET /detections"]
+  H --> J["web/public/detections.json<br/>offline fallback"]
+  I --> K["Next.js harita"]
+  J --> K
 ```
 
-- **Demo-güvenliği:** `detections.json` Go binary'sine **embed** edilir → backend DB olmadan, dosya bağımlılığı olmadan, soğuk başlatmada bile `/detections` döner. Web ise backend'e kısa timeout'la bağlanır, ulaşamazsa **paketlenmiş yerel veriye** düşer → harita demo sırasında **asla boş kalmaz**.
+Jüri sorarsa kısa cevap:
 
-## 3. Teknoloji Yığını
-| Katman | Teknoloji | Hosting |
-|---|---|---|
-| Web | Next.js 14 (App Router, TS) + react-leaflet | Vercel |
-| Backend | Go — **masterfabric-go** mimarisi (Chi, DDD: domain→application→infrastructure) | Render (Docker) |
-| CV/AI | Hugging Face `transformers` — **Grounding DINO** (zero-shot), **deface** (anonimleştirme) | yerel/offline |
-| Veri | Google Street View Static API (ücretsiz kota) | — |
+> "Fotoğraflar Google Street View Static API'den, `ml/points.json` içindeki Başakşehir koordinatlarıyla çekiliyor. Önce metadata endpoint'i ile görüntü var mı kontrol ediyoruz, sonra ham görüntüyü indiriyoruz. Model çalışmadan önce yüz/plaka anonimleştirme adımı var. Ardından Hugging Face Grounding DINO ile cansız kentsel objeler tespit ediliyor. Demo sırasında canlı model çalıştırmıyoruz; doğrulanmış sonuçları `detections.json` olarak backend'e embed ediyoruz. Böylece demo hızlı, tekrarlanabilir ve internet/model gecikmesine bağımlı değil."
 
-## 4. Depo Yapısı
-```
+## Teknoloji Yığını
+
+| Kriter | Karşılanan Uygulama |
+|---|---|
+| Web | Next.js 14, TypeScript, React Leaflet, Vercel dağıtımı |
+| Backend | Go, masterfabric-go mimarisi, Chi router, DDD katmanları, Render Docker dağıtımı |
+| AI / CV | Hugging Face `transformers`, Grounding DINO zero-shot detection |
+| Anonimleştirme | Google Street View kaynak blur + `deface` + Grounding DINO backstop |
+| Veri kaynağı | Google Street View Static API |
+| Agentic geliştirme | `.cursor/rules/citylens-hackathon.mdc` ve backend Cursor ruleset dosyaları |
+| Cursor SDK / CLI | `tools/cursor/summarize_detections.mjs`, `@cursor/sdk`, `cursor-agent` kullanım dokümü |
+| KVKK | Ham veri git dışı, anonim kanıt, imha belgesi: `docs/KVKK-IMHA.md` |
+| Tekrarlanabilirlik | `data/processed/detections.json`, backend embed JSON, commit geçmişi |
+
+Expo notu: Hackathon şartnamesindeki mobil/Expo katmanı için veri sözleşmesi hazırdır; aynı `/detections` endpoint'i Expo istemcisi tarafından doğrudan tüketilebilir. Bu teslimde canlı jüri demosu web harita + Go backend + CV pipeline üzerine odaklanmıştır.
+
+## Repo Yapısı
+
+```text
 CityLens/
-├── backend/   # Go (masterfabric-go) — detections dikey dilimi eklendi
-├── web/       # Next.js harita arayüzü
-├── ml/        # CV pipeline: fetch → anonymize → detect → export
-├── data/      # raw/ (gitignored, KVKK), processed/detections.json
-├── docs/      # KVKK-IMHA.md (imha belgesi)
-└── README.md
+  backend/                 Go backend, masterfabric-go mimarisi
+  web/                     Next.js harita arayüzü
+  ml/                      fetch -> anonymize -> detect -> export CV pipeline
+  data/processed/          final detections.json ve model adayları
+  web/public/anon/         sadece demo için seçilmiş anonim kanıt görselleri
+  docs/KVKK-IMHA.md        anonimleştirme ve ham veri imha belgesi
+  docs/SUNUM-NOTLARI.md    jüri sunum akışı ve konuşma metni
+  tools/cursor/            Cursor SDK / CLI bonus otomasyonları
 ```
 
-Eklenen backend dikey dilimi (masterfabric konvansiyonlarına birebir uyumlu):
-- `internal/domain/detection/{model,repository}`
-- `internal/application/detection/{dto,usecase}`
-- `internal/infrastructure/detection/json_repo.go` (embed + `DETECTIONS_PATH` override)
-- `internal/infrastructure/http/handler/detection/handler.go`
-- `router.go` → `GET /detections`, `GET /detections/stats` (**`/api/v1` dışında**, `/health` gibi public)
+## API Sözleşmesi
 
-## 5. Çalıştırma (Local)
+`GET /detections`
 
-### Backend (Go)
+```json
+[
+  {
+    "id": "0006-garbage-1",
+    "lat": 41.075235,
+    "lng": 28.802693,
+    "label": "Çöp / atık",
+    "category": "garbage",
+    "score": 0.6151,
+    "image_url": "/anon/0006.jpg",
+    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
+    "severity": "info",
+    "captured_at": "2026-06-06T12:18:00Z"
+  }
+]
+```
+
+`GET /detections/stats`
+
+```json
+{
+  "total": 5,
+  "by_label": {
+    "Çöp / atık": 2,
+    "Reklam panosu": 2,
+    "Kent levhası": 1
+  }
+}
+```
+
+## Local Çalıştırma
+
+Backend:
+
 ```bash
 cd backend
 go run ./cmd/server
-# GET http://localhost:8080/health/live      -> {"status":"alive"}
-# GET http://localhost:8080/detections       -> [{lat,lng,label,score,image_url,...}]
-# GET http://localhost:8080/detections/stats -> {total, by_severity, by_label, avg_score}
 ```
-Postgres gerekmez; server DB olmadan kalkar.
 
-### Web (Next.js)
+Kontrol:
+
+```bash
+curl http://localhost:8080/health/live
+curl http://localhost:8080/detections
+curl http://localhost:8080/detections/stats
+```
+
+Web:
+
 ```bash
 cd web
 pnpm install
-# web/.env.local içine: NEXT_PUBLIC_API_URL=http://localhost:8080
-pnpm dev   # http://localhost:3000
+pnpm dev
 ```
 
-### CV Pipeline (Hugging Face)
+`web/.env.local`:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8080
+```
+
+CV pipeline:
+
 ```bash
 cd ml
-pip install -r requirements.txt   # torch + deface zaten kurulu
-# .env içine GOOGLE_MAPS_API_KEY=... ekleyin
-python run_pipeline.py            # fetch → anonymize → detect → export
-```
-Kategoriler `ml/config.py` → `CATEGORIES` listesinde tanımlı (trafik levhası, reklam panosu, atık), her biri **kendi eşiğiyle**. Yeni kategori = listeye bir satır; prompt otomatik birleşir (`traffic sign. billboard. garbage.`).
-
-## 6. API Sözleşmesi
-`GET /detections` → `200`:
-```json
-[{ "id": "..", "lat": 41.0931, "lng": 28.8020, "label": "trafik levhası",
-   "score": 0.94, "image_url": "/anon/0001.svg", "address": "..",
-   "severity": "warning", "captured_at": "2026-06-06T08:10:00Z" }]
+pip install -r requirements.txt
+python run_pipeline.py
 ```
 
-## 7. KVKK ve Etik
-- Yalnızca **cansız kentsel obje**. Yüz tanıma / plaka okuma / profilleme / takip **yok**.
-- Yüz & plaka, model çalışmadan **önce** geri döndürülemez biçimde bulanıklaştırılır (`fetch → anonymize → detect` zorunlu sıra; `detect.py` ham veriyi okumayı reddeder).
-- Ham görüntüler gitignored, etkinlik sonunda silinir ve belgelenir → **[docs/KVKK-IMHA.md](docs/KVKK-IMHA.md)**.
+Pipeline tekrar çalıştırılırsa ham görseller yeniden indirilebilir. Hackathon tesliminde KVKK gereği ham görseller imha edilir; demo için anonim kanıtlar ve `detections.json` yeterlidir.
 
-## 8. AI Adaptasyonu — Cursor Kullanımı
-Bu proje uçtan uca **AI-Driven** geliştirildi:
+## Değerlendirme Kriterleri
 
-**Agentic Ruleset (zorunlu kural):**
-- `.cursor/rules/citylens-hackathon.mdc` — bağlayıcı hackathon kuralları (stack, KVKK, çıktı sözleşmesi) her promptta otomatik uygulanır.
-- `backend/.cursor/rules/*.mdc` — masterfabric-go'nun 10 konvansiyon dosyası (import sırası, `NewXxx`, context-first, `%w` ile hata sarma, UUID, UTC) agent tarafından birebir takip edildi.
+| Hackathon kriteri | Durum |
+|---|---|
+| Teknik çalışırlık, canlı demo, mimariye uyum | Karşılandı. Go backend build alıyor, `/detections` public endpoint'i var, web harita fallback ile boş kalmıyor. |
+| Doğruluk ve güvenilirlik | Karşılandı. Model adayları insan kontrolünden geçirildi; yanlış/kararsız fotoğraflar public demo setinden silindi. |
+| Kamu faydası | Karşılandı. Belediye saha ekipleri için koordinatlı, kanıtlı, önceliklendirilebilir kentsel denetim ekranı sunar. |
+| AI adaptasyonu | Karşılandı. Cursor ruleset, Cursor IDE, agentic akış, Hugging Face modeli, Cursor SDK ve Cursor CLI dokümü mevcut. |
+| KVKK ve etik uyum | Karşılandı. Sadece cansız objeler hedeflenir; yüz/plaka anonimleştirme ve ham veri imha belgesi vardır. |
+| Sunum ve dokümantasyon | Karşılandı. README, deploy rehberi, KVKK belgesi ve jüri sunum notları eklidir. |
+| Ödül hakediş şartı | Canlı demo, tekrarlanabilir sonuç, çalıştırılabilir kaynak kodu ve KVKK imha belgesi hazırlanmıştır. |
 
-**Prompt teknikleri & Cursor özellikleri:**
-- **Kalıcı brifing dosyası** (`AI_HANDOFF.md`) → agent'a tek kaynaktan spesifikasyon.
-- **Explore subagent** ile masterfabric-go mimarisi haritalandı; ardından "dikey dilim" konvansiyona uygun yazıldı.
-- **Walking skeleton** yaklaşımı: önce uçtan uca çalışan en basit sürüm, sonra derinleştirme.
-- **Edge-case-first**: Render `PORT` fallback, Go embed ile demo-güvenliği, web offline fallback, react-leaflet SSR/`window` sorunu önceden çözüldü.
+## Cursor SDK ve CLI
 
-**Bonus — Cursor CLI & SDK:**
-- `tools/cursor/summarize_detections.mjs` — Cursor **SDK** (`@cursor/sdk`) ile `detections.json`'dan yönetici özeti üreten örnek otomasyon.
-- Cursor **CLI** (`cursor-agent`) ile tekrarlanabilir görev çalıştırma; ayrıntı: [`tools/cursor/README.md`](tools/cursor/README.md).
+Bonus AI adaptasyonu için `tools/cursor/` klasörü eklidir.
 
-## 9. Deploy
-**Backend → Render** (Docker): repo'da `render.yaml` mevcut. Render → New → Blueprint → repo seç. `rootDir: backend`, Dockerfile `golang:1.25-alpine` (go.mod 1.25.x ile uyumlu). Health check: `/health/live`. Render `PORT`'u inject eder, config otomatik okur.
+Cursor SDK örneği:
 
-**Web → Vercel:** New Project → repo → **Root Directory = `web`**. Env: `NEXT_PUBLIC_API_URL = https://<render-app>.onrender.com`. Framework otomatik (Next.js).
+```bash
+cd tools/cursor
+pnpm install
+set CURSOR_API_KEY=cursor_...
+pnpm summarize
+```
 
-Adım adım kontrol listesi: [`docs/DEPLOY.md`](docs/DEPLOY.md).
+Bu komut `detections.json` içindeki sonuçlardan belediye yöneticisine yönelik kısa bir önceliklendirme raporu üretir.
 
-## 10. Sonuçlar & Tekrarlanabilirlik (ödül şartı)
-- Bu repodaki `detections.json`, Başakşehir'de **20 Street View noktasından** Grounding DINO (zero-shot, **çok kategorili**) ile üretilen **gerçek tespitlerdir** (3 kategori: trafik levhası, reklam panosu, atık). Kanıt görsellerine **tespit kutusu + kategori + skor** çizilmiştir; görüntüler gerçek ve anonimleştirilmiştir.
-- Renkler = **model güveni / saha doğrulama önceliği** (alarm değil): düşük güvenli tespitler önce sahada doğrulanır → insan-döngüde, sorumlu AI. Düşük kaliteli/bulanık kutular **varyans filtresi + per-kategori eşik + NMS** ile ayıklanır (kalite > nicelik).
-- Sonuçlar `data/processed/detections.json` + commit geçmişi ile **tekrarlanabilir**; demo canlı model çıkarımına bağımlı değildir (embed edilmiş JSON).
-- **Doğruluk yol haritası:** zero-shot skorlar mütevazıdır; HF dataset ile fine-tune ve daha çok tarama noktası ile artırılabilir.
+Cursor CLI örneği:
 
-## 11. Takım
-- _(isim/rol — doldurun)_
+```bash
+cursor-agent -p "data/processed/detections.json'u oku; belediye saha ekibi için en öncelikli 3 noktayı özetle."
+```
 
----
-_Geleceği sadece beklemiyoruz; onu birlikte inşa ediyoruz._ 🚀
+## Deploy
+
+Backend Render:
+
+- `render.yaml` hazırdır.
+- Root directory: `backend`
+- Runtime: Docker
+- Health check: `/health/live`
+- Render `PORT` değişkeni otomatik okunur.
+
+Web Vercel:
+
+- Root directory: `web`
+- Environment variable: `NEXT_PUBLIC_API_URL=https://<render-backend-url>`
+- Backend uykuda olsa bile web local fallback veriyle açılır.
+
+## Takım
+
+- Burhan Çalık - fikir, frontend, backend, CV pipeline, demo ve dokümantasyon
+
+## Son Cümle
+
+CityLens, sokak görüntülerinden cansız kentsel objeleri mahremiyet koruyarak çıkaran, belediye operasyonuna doğrudan bağlanabilecek, çalışan ve tekrarlanabilir bir AI kentsel denetim prototipidir.

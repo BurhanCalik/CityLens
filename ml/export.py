@@ -12,12 +12,16 @@ from __future__ import annotations
 
 import json
 import math
+import uuid
 from collections import defaultdict
 from datetime import datetime, timezone
 
 from PIL import Image, ImageDraw, ImageFont
 
 import config
+
+
+DETECTION_NAMESPACE = uuid.UUID("6f1b3c9e-0b3a-4c2a-9b7e-9c1d2e3f4a5b")
 
 
 def _font(size: int) -> ImageFont.ImageFont:
@@ -104,11 +108,17 @@ def main() -> int:
         if src.exists():
             _draw_boxes(src, dets, config.WEB_ANON_DIR / image_name)
 
-    # One record per detection.
+    # One record per reviewed detection. Keep a stable id in the public payload
+    # so the map can use deterministic marker keys in live and offline modes.
     records = []
+    image_seen: dict[str, int] = defaultdict(int)
     for d in raw:
+        image_seen[d["image"]] += 1
+        id_seed = f"{d['image']}|{d['category']}|{d['label']}|{d['box']}"
+        public_id = str(uuid.uuid5(DETECTION_NAMESPACE, id_seed))
         records.append(
             {
+                "id": public_id,
                 "lat": round(float(d["lat"]), 6),
                 "lng": round(float(d["lng"]), 6),
                 "label": d["label"],

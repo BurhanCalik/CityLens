@@ -26,8 +26,8 @@ Repo: `https://github.com/BurhanCalik/CityLens` (mevcut).
 **Doğrula:**
 ```
 https://citylens-backend.onrender.com/health/live      -> {"status":"alive"}
-https://citylens-backend.onrender.com/detections        -> [ ... 10 kayıt ... ]
-https://citylens-backend.onrender.com/detections/stats  -> {"total":10, ...}
+https://citylens-backend.onrender.com/detections        -> [ ... 5 temiz demo kaydı ... ]
+https://citylens-backend.onrender.com/detections/stats  -> {"total":5, ...}
 ```
 > Not: PORT'u Render otomatik enjekte eder; config `PORT`'u önce okur. DB gerekmez (detections embed'li).
 
@@ -53,6 +53,7 @@ Demo `detections.json` ile hazır çalışır. Gerçek Street View taraması iç
 - [ ] Web açılışta backend'e bağlanırsa **"Canlı backend bağlı"** rozeti yeşil yanar. Uyumadıysa bile harita yerel veriyle dolu gelir (demo bozulmaz).
 - [ ] `detections.json` commit'li mi? (tekrarlanabilirlik şartı)
 - [ ] KVKK: `data/raw/` boş + `docs/KVKK-IMHA.md` dolduruldu mu?
+- [ ] `web/public/anon/` altında yalnızca final demo kanıtları var mı? (şu an 5 dosya)
 
 ## 5. Sık sorunlar
 | Sorun | Çözüm |
