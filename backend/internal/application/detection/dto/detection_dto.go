@@ -18,6 +18,7 @@ type DetectionResponse struct {
 	Lat        float64 `json:"lat"`
 	Lng        float64 `json:"lng"`
 	Label      string  `json:"label"`
+	Category   string  `json:"category,omitempty"`
 	Score      float64 `json:"score"`
 	ImageURL   string  `json:"image_url"`
 	Address    string  `json:"address,omitempty"`
@@ -45,6 +46,7 @@ func FromModel(d *model.Detection) DetectionResponse {
 		Lat:        d.Lat,
 		Lng:        d.Lng,
 		Label:      d.Label,
+		Category:   d.Category,
 		Score:      d.Score,
 		ImageURL:   d.ImageURL,
 		Address:    d.Address,

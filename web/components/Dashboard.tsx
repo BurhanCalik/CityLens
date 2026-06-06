@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useMemo, useState } from "react";
-import { computeStats, loadDetections } from "@/lib/api";
+import { loadDetections } from "@/lib/api";
 import type { DataSource, Detection, Severity } from "@/lib/types";
 
 // Leaflet touches `window`, so the map must only render on the client.
@@ -11,18 +11,36 @@ const MapView = dynamic(() => import("@/components/MapView"), {
   loading: () => <div className="map map--loading">Harita yükleniyor…</div>,
 });
 
-type Filter = "all" | Severity;
-
-const SEVERITY_LABEL: Record<Severity, string> = {
-  info: "Doğrulandı",
-  warning: "Takip",
-  urgent: "Acil inceleme",
+const CATEGORY_COLOR: Record<string, string> = {
+  traffic_sign: "#2dd4bf",
+  billboard: "#a78bfa",
+  garbage: "#f97316",
 };
+const FALLBACK_COLOR = "#64748b";
+
+// Severity is used here as a NON-ALARMIST model-confidence / verification-priority
+// scale (not an emergency scale). The legend explains the colors.
+const CONFIDENCE: { key: Severity; label: string; color: string }[] = [
+  { key: "info", label: "Yüksek güven", color: "#22c55e" },
+  { key: "warning", label: "Orta güven", color: "#f59e0b" },
+  { key: "urgent", label: "Düşük güven", color: "#ef4444" },
+];
+
+function confidenceLabel(sev?: Severity): string {
+  return CONFIDENCE.find((c) => c.key === (sev ?? "info"))?.label ?? "Yüksek güven";
+}
+
+function neighborhood(address?: string): string {
+  if (!address) return "Diğer";
+  const m = address.match(/^(.*?)\s*Mah\./);
+  return (m ? m[1] : address.split(",")[0]).trim();
+}
 
 export default function Dashboard() {
   const [detections, setDetections] = useState<Detection[]>([]);
   const [source, setSource] = useState<DataSource>("offline");
-  const [filter, setFilter] = useState<Filter>("all");
+  const [categoryFilter, setCategoryFilter] = useState<string>("all");
+  const [confidenceFilter, setConfidenceFilter] = useState<string>("all");
   const [selected, setSelected] = useState<Detection | null>(null);
 
   useEffect(() => {
@@ -37,10 +55,34 @@ export default function Dashboard() {
     };
   }, []);
 
-  const stats = useMemo(() => computeStats(detections), [detections]);
+  const categories = useMemo(() => {
+    const map = new Map<string, { key: string; label: string; count: number }>();
+    for (const d of detections) {
+      const key = d.category ?? "other";
+      const entry = map.get(key) ?? { key, label: d.label || "Diğer", count: 0 };
+      entry.count += 1;
+      map.set(key, entry);
+    }
+    return [...map.values()].sort((a, b) => b.count - a.count);
+  }, [detections]);
+
+  const neighborhoods = useMemo(() => {
+    const map = new Map<string, number>();
+    for (const d of detections) {
+      const n = neighborhood(d.address);
+      map.set(n, (map.get(n) ?? 0) + 1);
+    }
+    return [...map.entries()].map(([name, count]) => ({ name, count })).sort((a, b) => b.count - a.count);
+  }, [detections]);
+
   const visible = useMemo(
-    () => (filter === "all" ? detections : detections.filter((d) => (d.severity ?? "info") === filter)),
-    [detections, filter],
+    () =>
+      detections.filter(
+        (d) =>
+          (categoryFilter === "all" || (d.category ?? "other") === categoryFilter) &&
+          (confidenceFilter === "all" || (d.severity ?? "info") === confidenceFilter),
+      ),
+    [detections, categoryFilter, confidenceFilter],
   );
 
   return (
@@ -51,7 +93,7 @@ export default function Dashboard() {
         <div className="brand__logo">CL</div>
         <div>
           <div className="brand__title">CityLens</div>
-          <div className="brand__subtitle">Trafik levhası envanteri &amp; güvenlik denetimi · Başakşehir</div>
+          <div className="brand__subtitle">AI Kentsel Kusur/Denetim Haritası · Başakşehir</div>
         </div>
       </header>
 
@@ -63,46 +105,79 @@ export default function Dashboard() {
 
         <div className="stats">
           <div className="stat stat--total">
-            <div className="stat__value">{stats.total}</div>
+            <div className="stat__value">{detections.length}</div>
             <div className="stat__label">Toplam tespit</div>
           </div>
-          <div className="stat stat--urgent">
-            <div className="stat__value">{stats.urgent}</div>
-            <div className="stat__label">Acil inceleme</div>
-          </div>
-          <div className="stat">
-            <div className="stat__value">{stats.warning}</div>
-            <div className="stat__label">Takip</div>
-          </div>
-          <div className="stat">
-            <div className="stat__value">{stats.info}</div>
-            <div className="stat__label">Doğrulandı</div>
-          </div>
+          {categories.map((c) => (
+            <div className="stat" key={c.key}>
+              <div className="stat__value" style={{ color: CATEGORY_COLOR[c.key] ?? FALLBACK_COLOR }}>
+                {c.count}
+              </div>
+              <div className="stat__label">{c.label}</div>
+            </div>
+          ))}
         </div>
 
+        <div className="filter-group__title">Kategori</div>
         <div className="filters">
-          {(["all", "urgent", "warning", "info"] as Filter[]).map((f) => (
+          <button
+            className={`filter ${categoryFilter === "all" ? "filter--active" : ""}`}
+            onClick={() => setCategoryFilter("all")}
+          >
+            Tümü
+          </button>
+          {categories.map((c) => (
             <button
-              key={f}
-              className={`filter ${filter === f ? "filter--active" : ""}`}
-              onClick={() => setFilter(f)}
+              key={c.key}
+              className={`filter ${categoryFilter === c.key ? "filter--active" : ""}`}
+              onClick={() => setCategoryFilter(c.key)}
             >
-              {f === "all" ? "Tümü" : SEVERITY_LABEL[f]}
+              <span className="filter__dot" style={{ background: CATEGORY_COLOR[c.key] ?? FALLBACK_COLOR }} />
+              {c.label}
             </button>
           ))}
         </div>
 
-          <div className="legend">
-            <div className="legend__row">
-              <span className="legend__swatch" style={{ background: "#ef4444" }} /> Düşük güven · acil inceleme
+        <div className="filter-group__title">Doğrulama önceliği (model güveni)</div>
+        <div className="filters">
+          <button
+            className={`filter ${confidenceFilter === "all" ? "filter--active" : ""}`}
+            onClick={() => setConfidenceFilter("all")}
+          >
+            Tümü
+          </button>
+          {CONFIDENCE.map((c) => (
+            <button
+              key={c.key}
+              className={`filter ${confidenceFilter === c.key ? "filter--active" : ""}`}
+              onClick={() => setConfidenceFilter(c.key)}
+            >
+              <span className="filter__dot" style={{ background: c.color }} />
+              {c.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="legend">
+          <div className="legend__hint">Pin rengi = saha doğrulama önceliği (model güveni):</div>
+          {CONFIDENCE.map((c) => (
+            <div className="legend__row" key={c.key}>
+              <span className="legend__swatch" style={{ background: c.color }} /> {c.label}
             </div>
-            <div className="legend__row">
-              <span className="legend__swatch" style={{ background: "#f59e0b" }} /> Orta güven · takip
-            </div>
-            <div className="legend__row">
-              <span className="legend__swatch" style={{ background: "#3b82f6" }} /> Yüksek güven · doğrulandı
-            </div>
+          ))}
+        </div>
+
+        {neighborhoods.length > 1 && (
+          <div className="hood">
+            <div className="filter-group__title">Mahalleye göre</div>
+            {neighborhoods.slice(0, 4).map((n) => (
+              <div className="hood__row" key={n.name}>
+                <span className="hood__name">{n.name}</span>
+                <span className="hood__count">{n.count}</span>
+              </div>
+            ))}
           </div>
+        )}
       </aside>
 
       {selected && (
@@ -112,16 +187,23 @@ export default function Dashboard() {
           </button>
           <div className="evidence__imgwrap">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={selected.image_url} alt="Anonimleştirilmiş kanıt görseli" />
+            <img src={selected.image_url} alt="Anonimleştirilmiş kanıt görseli (tespit kutulu)" />
             <span className="evidence__badge">KVKK · yüz &amp; plaka bulanık</span>
           </div>
           <div className="evidence__body">
-            <span className={`tag tag--${selected.severity ?? "info"}`}>
-              {SEVERITY_LABEL[(selected.severity ?? "info") as Severity]}
+            <span
+              className="tag"
+              style={{
+                background: `${CATEGORY_COLOR[selected.category ?? "other"] ?? FALLBACK_COLOR}22`,
+                color: CATEGORY_COLOR[selected.category ?? "other"] ?? FALLBACK_COLOR,
+              }}
+            >
+              {selected.label}
             </span>
             <h2>{selected.label}</h2>
             <div className="evidence__score">
-              Tespit güveni: <strong>{(selected.score * 100).toFixed(1)}%</strong>
+              Tespit güveni: <strong>{(selected.score * 100).toFixed(1)}%</strong> ·{" "}
+              {confidenceLabel(selected.severity)}
             </div>
             <div className="meta">
               {selected.address && (
@@ -138,7 +220,7 @@ export default function Dashboard() {
               </div>
               {selected.captured_at && (
                 <div className="meta__row">
-                  <span className="meta__key">Çekim</span>
+                  <span className="meta__key">İşlenme</span>
                   <span className="meta__val">
                     {new Date(selected.captured_at).toLocaleString("tr-TR")}
                   </span>

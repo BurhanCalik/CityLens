@@ -20,13 +20,64 @@ ROOT = Path(__file__).resolve().parents[1]
 if load_dotenv is not None:
     load_dotenv(ROOT / ".env")
 
-# --- Target object -----------------------------------------------------------
-# KVKK: this MUST be an inanimate urban object (sign, bin, pothole, ...). Never
-# a person, face, plate or anything that identifies an individual.
-# `TARGET_OBJECT` is the English prompt fed to the zero-shot detector.
-# `TARGET_LABEL` is the human-readable label written into detections.json.
-TARGET_OBJECT = os.getenv("CITYLENS_TARGET", "traffic sign")
-TARGET_LABEL = os.getenv("CITYLENS_TARGET_LABEL", "trafik levhası")
+# --- Target categories -------------------------------------------------------
+# KVKK: every category MUST be an inanimate urban object. Never a person, face,
+# plate or anything that identifies an individual.
+#
+# Multi-category open-vocabulary detection: one combined Grounding DINO prompt,
+# then each detected box is mapped back to a category by its matched phrase.
+# Each category carries its OWN confidence threshold (precision tuning), a draw
+# color for the evidence image, a Turkish display label, and matching aliases.
+CATEGORIES = [
+    {
+        "key": "traffic_sign",
+        "prompt": "traffic sign",
+        "label": "Trafik levhası",
+        "threshold": float(os.getenv("TH_TRAFFIC_SIGN", "0.30")),
+        "color": "#2dd4bf",
+        "aliases": ["traffic sign", "traffic", "road sign", "street sign"],
+    },
+    {
+        "key": "billboard",
+        "prompt": "billboard",
+        "label": "Reklam panosu",
+        "threshold": float(os.getenv("TH_BILLBOARD", "0.40")),
+        "color": "#a78bfa",
+        "aliases": ["billboard", "bill board", "hoarding", "advertisement"],
+    },
+    {
+        "key": "garbage",
+        "prompt": "garbage",
+        "label": "Çöp / atık",
+        "threshold": float(os.getenv("TH_GARBAGE", "0.34")),
+        "color": "#f97316",
+        "aliases": ["garbage", "trash", "litter", "rubbish"],
+    },
+]
+
+
+def detection_prompt() -> str:
+    """Combined Grounding DINO prompt, e.g. 'traffic sign. billboard. garbage.'."""
+    return " ".join(c["prompt"].strip().rstrip(".") + "." for c in CATEGORIES)
+
+
+def category_for_label(text: str):
+    """Maps a Grounding DINO matched phrase to a category dict, or None (noise).
+
+    More specific categories are checked before the generic 'sign' family so an
+    ambiguous match doesn't get misfiled.
+    """
+    t = (text or "").lower()
+    for key in ("billboard", "garbage", "traffic_sign"):
+        cat = next(c for c in CATEGORIES if c["key"] == key)
+        if any(alias in t for alias in cat["aliases"]):
+            return cat
+    return None
+
+
+# Inference-time floor (lowest per-category threshold); per-category thresholds
+# are then applied in detect.py for precision.
+BASE_BOX_THRESHOLD = min(c["threshold"] for c in CATEGORIES)
 
 # --- Models (Hugging Face) ---------------------------------------------------
 # Prefer the locally downloaded weights; fall back to the Hub id otherwise.
@@ -38,9 +89,9 @@ _LOCAL_GDINO = Path(
 )
 GROUNDING_DINO_MODEL = str(_LOCAL_GDINO) if _LOCAL_GDINO.exists() else "IDEA-Research/grounding-dino-tiny"
 
-# Detection thresholds for Grounding DINO.
-BOX_THRESHOLD = float(os.getenv("BOX_THRESHOLD", "0.30"))
-TEXT_THRESHOLD = float(os.getenv("TEXT_THRESHOLD", "0.25"))
+# Grounding DINO text threshold (phrase-match strength). Box thresholds are
+# per-category (see CATEGORIES); BASE_BOX_THRESHOLD is the inference-time floor.
+TEXT_THRESHOLD = float(os.getenv("TEXT_THRESHOLD", "0.20"))
 
 # Anonymization prompt used as a backstop blur pass (faces + plates).
 ANON_PROMPT = os.getenv("CITYLENS_ANON_PROMPT", "human face. license plate.")

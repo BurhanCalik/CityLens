@@ -38,18 +38,26 @@ def _blur_regions(path) -> int:
     """Blurs faces + plates detected by Grounding DINO. Returns region count."""
     image = Image.open(path).convert("RGB")
     result = detect(image, config.ANON_PROMPT, config.ANON_BOX_THRESHOLD, config.ANON_BOX_THRESHOLD)
-    boxes = result["boxes"]
-    for x0, y0, x1, y1 in boxes:
+    img_area = image.width * image.height
+    blurred = 0
+    for x0, y0, x1, y1 in result["boxes"]:
         box = (int(max(0, x0)), int(max(0, y0)), int(min(image.width, x1)), int(min(image.height, y1)))
         if box[2] <= box[0] or box[3] <= box[1]:
             continue
+        bw, bh = box[2] - box[0], box[3] - box[1]
+        # Real faces/plates are small. Skip oversized false positives so we don't
+        # paint giant gray rectangles over the scene. (Google Street View already
+        # blurs faces/plates at source; this pass is defense-in-depth.)
+        if bw * bh > 0.16 * img_area or bw > 0.6 * image.width or bh > 0.6 * image.height:
+            continue
         region = image.crop(box)
-        # Strong, irreversible blur (radius scales with region size).
-        radius = max(12, int(min(region.size) * 0.6))
+        # Strong but bounded irreversible blur.
+        radius = min(30, max(10, int(min(bw, bh) * 0.5)))
         region = region.filter(ImageFilter.GaussianBlur(radius=radius))
         image.paste(region, box)
+        blurred += 1
     image.save(path, quality=92)
-    return len(boxes)
+    return blurred
 
 
 def main() -> int:

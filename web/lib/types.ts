@@ -6,6 +6,7 @@ export interface Detection {
   lat: number;
   lng: number;
   label: string;
+  category?: string;
   score: number;
   image_url: string;
   address?: string;

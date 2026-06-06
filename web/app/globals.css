@@ -182,9 +182,13 @@ body {
   margin-bottom: 14px;
 }
 .filter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   flex: 1 1 auto;
   cursor: pointer;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 600;
   padding: 7px 10px;
   border-radius: 9px;
@@ -192,6 +196,20 @@ body {
   background: rgba(2, 6, 23, 0.4);
   border: 1px solid var(--border);
   transition: all 0.15s ease;
+}
+.filter__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+.filter-group__title {
+  font-size: 0.66rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--muted);
+  margin: 4px 0 6px;
 }
 .filter:hover {
   border-color: var(--accent);
@@ -219,6 +237,31 @@ body {
   height: 12px;
   border-radius: 50%;
   border: 2px solid #fff;
+}
+.legend__hint {
+  font-size: 0.7rem;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+
+/* ---------- Neighborhood summary ---------- */
+.hood {
+  margin-top: 14px;
+}
+.hood__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border);
+}
+.hood__name {
+  color: var(--text);
+}
+.hood__count {
+  color: var(--accent);
+  font-weight: 700;
 }
 
 /* ---------- Evidence panel ---------- */
@@ -379,14 +422,13 @@ body {
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 .pin--info {
-  background: var(--info);
+  background: #22c55e;
 }
 .pin--warning {
   background: var(--warning);
 }
 .pin--urgent {
   background: var(--urgent);
-  animation: pulse 1.7s infinite;
 }
 
 @keyframes pulse {

@@ -1,16 +1,16 @@
 # CityLens 🏙️🔍
 
-**Belediye için otomatik trafik levhası envanteri + eksik/devrilmiş/görünürlüğü kapalı levha aday haritası.** Google Street View sokak görüntülerinden trafik levhalarını Hugging Face görü modeliyle (Grounding DINO, zero-shot) otomatik tespit eder, KVKK uyumlu biçimde anonimleştirir ve interaktif bir harita üzerinde belediyenin varlık yönetimi & trafik güvenliği ekipleri için sunar.
+**AI Kentsel Kusur/Denetim Haritası — proaktif, çok kategorili belediye denetimi.** Google Street View sokak görüntülerinden **trafik levhası, reklam panosu ve atık** gibi kentsel objeleri Hugging Face görü modeliyle (Grounding DINO, zero-shot, çok kategorili) otomatik tespit eder, KVKK uyumlu biçimde anonimleştirir ve interaktif bir harita üzerinde belediyenin varlık yönetimi & saha ekipleri için sunar.
 
 > Cursor Istanbul Hackathon projesi. Tüm geliştirme Cursor IDE içinde, agentic ruleset ile yapılmıştır.
 
 ---
 
 ## 1. Problem ve Kamusal Fayda
-Bir belediyede **binlerce trafik levhası** vardır; envanterleri çoğu zaman güncel değildir ve eksik, devrilmiş ya da ağaç/afiş yüzünden **görünürlüğü kapanmış** levhalar genelde ancak şikâyet/kaza sonrası fark edilir. Manuel saha taraması yavaş ve pahalıdır.
+Bir belediyede **binlerce kentsel obje** vardır — trafik levhaları, reklam panoları, atık noktaları… Envanterleri çoğu zaman güncel değildir; eksik/devrilmiş levhalar, kaçak/izinsiz panolar veya birikmiş atık genelde ancak şikâyet sonrası fark edilir. Manuel saha taraması yavaş ve pahalıdır.
 
 CityLens, halihazırda var olan sokak görüntülerini tarayarak:
-- **Otomatik levha envanteri** çıkarır (her tespit: konum + güven skoru + anonim kanıt görseli) — GIS / saha planlaması için hazır veri.
+- **Otomatik çok-kategorili envanter** çıkarır (trafik levhası, reklam panosu, atık) — her tespit: konum + kategori + güven skoru + **kutulu** anonim kanıt görseli; GIS / saha planlaması için hazır veri.
 - **Aday sorun haritası** üretir: düşük güvenli / atipik tespitler "insan doğrulaması gereken aday" (eksik/devrilmiş/görünürlüğü kapalı olabilir) olarak işaretlenir → **insan-döngüde, sorumlu AI**.
 - **Veri tabanlı karar:** tahmin değil, koordinatlı gerçek tespitler; tekrarlanabilir `detections.json`.
 - **KVKK:** yalnızca cansız obje; yüz/plaka, model çalışmadan önce geri döndürülemez biçimde bulanıklaştırılır.
@@ -84,7 +84,7 @@ pip install -r requirements.txt   # torch + deface zaten kurulu
 # .env içine GOOGLE_MAPS_API_KEY=... ekleyin
 python run_pipeline.py            # fetch → anonymize → detect → export
 ```
-Hedef nesneyi değiştirmek tek satır: `CITYLENS_TARGET` (ör. `"traffic sign"`, `"pothole"`, `"garbage bin"`) + `CITYLENS_TARGET_LABEL`.
+Kategoriler `ml/config.py` → `CATEGORIES` listesinde tanımlı (trafik levhası, reklam panosu, atık), her biri **kendi eşiğiyle**. Yeni kategori = listeye bir satır; prompt otomatik birleşir (`traffic sign. billboard. garbage.`).
 
 ## 6. API Sözleşmesi
 `GET /detections` → `200`:
@@ -124,10 +124,10 @@ Bu proje uçtan uca **AI-Driven** geliştirildi:
 Adım adım kontrol listesi: [`docs/DEPLOY.md`](docs/DEPLOY.md).
 
 ## 10. Sonuçlar & Tekrarlanabilirlik (ödül şartı)
-- Bu repodaki `detections.json`, Başakşehir'de **20 Street View noktasından** Grounding DINO (zero-shot) ile üretilen **11 gerçek trafik levhası tespitidir** (pano başına en iyi tespit; kanıt görselleri gerçek ve anonimleştirilmiş).
-- Severity = **göreli inceleme önceliği** (skora göre): en düşük güvenli tespitler "acil inceleme adayı" (insan-döngüde doğrulama).
+- Bu repodaki `detections.json`, Başakşehir'de **20 Street View noktasından** Grounding DINO (zero-shot, **çok kategorili**) ile üretilen **gerçek tespitlerdir** (3 kategori: trafik levhası, reklam panosu, atık). Kanıt görsellerine **tespit kutusu + kategori + skor** çizilmiştir; görüntüler gerçek ve anonimleştirilmiştir.
+- Renkler = **model güveni / saha doğrulama önceliği** (alarm değil): düşük güvenli tespitler önce sahada doğrulanır → insan-döngüde, sorumlu AI. Düşük kaliteli/bulanık kutular **varyans filtresi + per-kategori eşik + NMS** ile ayıklanır (kalite > nicelik).
 - Sonuçlar `data/processed/detections.json` + commit geçmişi ile **tekrarlanabilir**; demo canlı model çıkarımına bağımlı değildir (embed edilmiş JSON).
-- **Doğruluk yol haritası:** zero-shot skorlar mütevazıdır; HF dataset ile fine-tune + çoklu prompt (`traffic sign. road sign. signpost.`) ile artırılabilir.
+- **Doğruluk yol haritası:** zero-shot skorlar mütevazıdır; HF dataset ile fine-tune ve daha çok tarama noktası ile artırılabilir.
 
 ## 11. Takım
 - _(isim/rol — doldurun)_

@@ -1,50 +1,20 @@
 [
   {
-    "id": "0002",
-    "image": "0002.jpg",
-    "lat": 41.09464528988056,
-    "lng": 28.80379231287372,
-    "address": "Başak Mah. 5. Etap, Başakşehir/İstanbul",
+    "id": "0005",
+    "image": "0005.jpg",
+    "lat": 41.08898589151641,
+    "lng": 28.79652871744393,
+    "address": "Güvercintepe Mah., Başakşehir/İstanbul",
     "captured_at": "2019-08",
-    "label": "trafik levhası",
-    "score": 0.2151,
+    "category": "billboard",
+    "label": "Reklam panosu",
+    "color": "#a78bfa",
+    "score": 0.5665,
     "box": [
-      68.6,
-      387.8,
-      638.8,
-      638.0
-    ]
-  },
-  {
-    "id": "0003",
-    "image": "0003.jpg",
-    "lat": 41.09162969210757,
-    "lng": 28.80042129196578,
-    "address": "Başak Mah. 4. Etap, Başakşehir/İstanbul",
-    "captured_at": "2025-08",
-    "label": "trafik levhası",
-    "score": 0.304,
-    "box": [
-      84.2,
-      238.0,
-      117.9,
-      256.7
-    ]
-  },
-  {
-    "id": "0003",
-    "image": "0003.jpg",
-    "lat": 41.09162969210757,
-    "lng": 28.80042129196578,
-    "address": "Başak Mah. 4. Etap, Başakşehir/İstanbul",
-    "captured_at": "2025-08",
-    "label": "trafik levhası",
-    "score": 0.2287,
-    "box": [
-      0.2,
-      226.3,
-      43.4,
-      253.7
+      0.3,
+      133.3,
+      136.3,
+      286.2
     ]
   },
   {
@@ -54,45 +24,33 @@
     "lng": 28.79652871744393,
     "address": "Güvercintepe Mah., Başakşehir/İstanbul",
     "captured_at": "2019-08",
-    "label": "trafik levhası",
-    "score": 0.3818,
+    "category": "traffic_sign",
+    "label": "Trafik levhası",
+    "color": "#2dd4bf",
+    "score": 0.4356,
     "box": [
-      218.8,
-      244.9,
-      233.6,
-      259.9
+      218.6,
+      244.5,
+      233.7,
+      260.0
     ]
   },
   {
-    "id": "0005",
-    "image": "0005.jpg",
-    "lat": 41.08898589151641,
-    "lng": 28.79652871744393,
+    "id": "0006",
+    "image": "0006.jpg",
+    "lat": 41.08983941783661,
+    "lng": 28.7980905786759,
     "address": "Güvercintepe Mah., Başakşehir/İstanbul",
-    "captured_at": "2019-08",
-    "label": "trafik levhası",
-    "score": 0.2324,
+    "captured_at": "2017-02",
+    "category": "billboard",
+    "label": "Reklam panosu",
+    "color": "#a78bfa",
+    "score": 0.5055,
     "box": [
-      230.5,
-      212.4,
-      250.5,
-      261.8
-    ]
-  },
-  {
-    "id": "0005",
-    "image": "0005.jpg",
-    "lat": 41.08898589151641,
-    "lng": 28.79652871744393,
-    "address": "Güvercintepe Mah., Başakşehir/İstanbul",
-    "captured_at": "2019-08",
-    "label": "trafik levhası",
-    "score": 0.2111,
-    "box": [
-      0.2,
-      134.0,
-      136.4,
-      285.7
+      0.4,
+      0.1,
+      217.6,
+      100.4
     ]
   },
   {
@@ -102,61 +60,15 @@
     "lng": 28.79522740661207,
     "address": "Güvercintepe Mah. Fatih Cad., Başakşehir/İstanbul",
     "captured_at": "2023-11",
-    "label": "trafik levhası",
-    "score": 0.5537,
+    "category": "traffic_sign",
+    "label": "Trafik levhası",
+    "color": "#2dd4bf",
+    "score": 0.5394,
     "box": [
-      150.3,
+      150.2,
       132.7,
       210.3,
-      184.1
-    ]
-  },
-  {
-    "id": "0007",
-    "image": "0007.jpg",
-    "lat": 41.08782697747052,
-    "lng": 28.79522740661207,
-    "address": "Güvercintepe Mah. Fatih Cad., Başakşehir/İstanbul",
-    "captured_at": "2023-11",
-    "label": "trafik levhası",
-    "score": 0.2268,
-    "box": [
-      166.4,
-      314.2,
-      179.9,
-      341.9
-    ]
-  },
-  {
-    "id": "0008",
-    "image": "0008.jpg",
-    "lat": 41.08951675234756,
-    "lng": 28.79450858186165,
-    "address": "Güvercintepe Mah., Başakşehir/İstanbul",
-    "captured_at": "2025-08",
-    "label": "trafik levhası",
-    "score": 0.4201,
-    "box": [
-      219.5,
-      183.2,
-      290.0,
-      342.4
-    ]
-  },
-  {
-    "id": "0010",
-    "image": "0010.jpg",
-    "lat": 41.10249768011856,
-    "lng": 28.80054863583628,
-    "address": "Kayabaşı Mah. Kuzey Cad., Başakşehir/İstanbul",
-    "captured_at": "2019-09",
-    "label": "trafik levhası",
-    "score": 0.3251,
-    "box": [
-      20.6,
-      174.6,
-      51.3,
-      238.9
+      183.8
     ]
   },
   {
@@ -166,125 +78,33 @@
     "lng": 28.79763508557874,
     "address": "Kayabaşı Mah., Başakşehir/İstanbul",
     "captured_at": "2025-08",
-    "label": "trafik levhası",
-    "score": 0.2029,
+    "category": "billboard",
+    "label": "Reklam panosu",
+    "color": "#a78bfa",
+    "score": 0.4164,
     "box": [
-      324.5,
-      318.9,
-      399.6,
-      381.8
+      324.2,
+      318.4,
+      399.9,
+      381.9
     ]
   },
   {
-    "id": "0012",
-    "image": "0012.jpg",
-    "lat": 41.10203952545689,
-    "lng": 28.7973615400898,
-    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
-    "captured_at": "2025-08",
-    "label": "trafik levhası",
-    "score": 0.2332,
-    "box": [
-      316.7,
-      274.8,
-      418.8,
-      403.3
-    ]
-  },
-  {
-    "id": "0012",
-    "image": "0012.jpg",
-    "lat": 41.10203952545689,
-    "lng": 28.7973615400898,
-    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
-    "captured_at": "2025-08",
-    "label": "trafik levhası",
-    "score": 0.2021,
-    "box": [
-      341.4,
-      186.0,
-      378.7,
-      260.5
-    ]
-  },
-  {
-    "id": "0013",
-    "image": "0013.jpg",
-    "lat": 41.09224378240822,
-    "lng": 28.78860979141796,
+    "id": "0014",
+    "image": "0014.jpg",
+    "lat": 41.09344346471397,
+    "lng": 28.79047259108159,
     "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
     "captured_at": "2025-08",
-    "label": "trafik levhası",
-    "score": 0.3166,
+    "category": "garbage",
+    "label": "Çöp / atık",
+    "color": "#f97316",
+    "score": 0.3583,
     "box": [
-      230.2,
-      201.1,
-      268.2,
-      280.6
-    ]
-  },
-  {
-    "id": "0013",
-    "image": "0013.jpg",
-    "lat": 41.09224378240822,
-    "lng": 28.78860979141796,
-    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
-    "captured_at": "2025-08",
-    "label": "trafik levhası",
-    "score": 0.25,
-    "box": [
-      243.0,
-      273.7,
-      256.9,
-      297.0
-    ]
-  },
-  {
-    "id": "0016",
-    "image": "0016.jpg",
-    "lat": 41.09300506839981,
-    "lng": 28.78656251855545,
-    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
-    "captured_at": "2025-08",
-    "label": "trafik levhası",
-    "score": 0.2205,
-    "box": [
-      626.7,
-      272.1,
-      639.9,
-      291.8
-    ]
-  },
-  {
-    "id": "0019",
-    "image": "0019.jpg",
-    "lat": 41.10208918381655,
-    "lng": 28.80299500551092,
-    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
-    "captured_at": "2025-08",
-    "label": "trafik levhası",
-    "score": 0.3041,
-    "box": [
-      441.5,
-      355.6,
-      459.9,
-      373.1
-    ]
-  },
-  {
-    "id": "0019",
-    "image": "0019.jpg",
-    "lat": 41.10208918381655,
-    "lng": 28.80299500551092,
-    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
-    "captured_at": "2025-08",
-    "label": "trafik levhası",
-    "score": 0.2119,
-    "box": [
-      185.6,
-      357.7,
-      204.3,
-      377.5
+      0.3,
+      358.5,
+      110.3,
+      477.5
     ]
   }
 ]
