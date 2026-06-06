@@ -51,7 +51,7 @@ export default function Dashboard() {
         <div className="brand__logo">CL</div>
         <div>
           <div className="brand__title">CityLens</div>
-          <div className="brand__subtitle">Yapay zekâ ile kentsel denetim · Başakşehir</div>
+          <div className="brand__subtitle">Trafik levhası envanteri &amp; güvenlik denetimi · Başakşehir</div>
         </div>
       </header>
 

@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "CityLens — Yapay Zekâ ile Kentsel Denetim",
   description:
-    "Sokak görüntülerinden kentsel objeleri otomatik tespit eden, KVKK uyumlu kamusal denetim haritası.",
+    "Belediye için otomatik trafik levhası envanteri ve eksik/devrilmiş/görünürlüğü kapalı levha aday haritası. KVKK uyumlu, yapay zekâ destekli kentsel denetim.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

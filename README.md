@@ -1,16 +1,19 @@
 # CityLens 🏙️🔍
 
-**Yapay zekâ ile kentsel denetim.** Google Street View sokak görüntülerinden cansız kentsel objeleri (ör. trafik levhası) Hugging Face görü modeliyle otomatik tespit eder, sonuçları KVKK uyumlu biçimde anonimleştirir ve interaktif bir harita üzerinde belediye/vatandaş için sunar.
+**Belediye için otomatik trafik levhası envanteri + eksik/devrilmiş/görünürlüğü kapalı levha aday haritası.** Google Street View sokak görüntülerinden trafik levhalarını Hugging Face görü modeliyle (Grounding DINO, zero-shot) otomatik tespit eder, KVKK uyumlu biçimde anonimleştirir ve interaktif bir harita üzerinde belediyenin varlık yönetimi & trafik güvenliği ekipleri için sunar.
 
 > Cursor Istanbul Hackathon projesi. Tüm geliştirme Cursor IDE içinde, agentic ruleset ile yapılmıştır.
 
 ---
 
 ## 1. Problem ve Kamusal Fayda
-Şehirlerde trafik levhaları, çöp kutuları, hasarlı yollar gibi binlerce kentsel obje **manuel** denetlenir; bu yavaş, pahalı ve eksiktir. CityLens, halihazırda var olan sokak görüntülerini tarayarak bu denetimi **otomatik, ölçeklenebilir ve tekrarlanabilir** hale getirir:
-- **Veri tabanlı karar:** tahmin değil, koordinatlı gerçek tespitler.
-- **Kamusal fayda:** belediye saha ekipleri için önceliklendirilmiş iş listesi (acil/uyarı/bilgi).
-- **Sorumlu AI:** yalnızca cansız obje; yüz/plaka model çalışmadan önce geri döndürülemez biçimde bulanıklaştırılır.
+Bir belediyede **binlerce trafik levhası** vardır; envanterleri çoğu zaman güncel değildir ve eksik, devrilmiş ya da ağaç/afiş yüzünden **görünürlüğü kapanmış** levhalar genelde ancak şikâyet/kaza sonrası fark edilir. Manuel saha taraması yavaş ve pahalıdır.
+
+CityLens, halihazırda var olan sokak görüntülerini tarayarak:
+- **Otomatik levha envanteri** çıkarır (her tespit: konum + güven skoru + anonim kanıt görseli) — GIS / saha planlaması için hazır veri.
+- **Aday sorun haritası** üretir: düşük güvenli / atipik tespitler "insan doğrulaması gereken aday" (eksik/devrilmiş/görünürlüğü kapalı olabilir) olarak işaretlenir → **insan-döngüde, sorumlu AI**.
+- **Veri tabanlı karar:** tahmin değil, koordinatlı gerçek tespitler; tekrarlanabilir `detections.json`.
+- **KVKK:** yalnızca cansız obje; yüz/plaka, model çalışmadan önce geri döndürülemez biçimde bulanıklaştırılır.
 
 ## 2. Mimari
 
