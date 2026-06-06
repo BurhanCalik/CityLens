@@ -1,0 +1,432 @@
+:root {
+  --bg: #0b1220;
+  --panel: rgba(17, 25, 40, 0.82);
+  --panel-solid: #111928;
+  --border: rgba(148, 163, 184, 0.18);
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --accent: #2dd4bf;
+  --info: #3b82f6;
+  --warning: #f59e0b;
+  --urgent: #ef4444;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+.app {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* ---------- Map ---------- */
+.map {
+  height: 100vh;
+  width: 100vw;
+  background: #0b1220;
+  z-index: 0;
+}
+.map--loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.leaflet-container {
+  background: #0b1220;
+}
+/* Tone the OSM tiles toward the dark UI without an external dark tile key. */
+.leaflet-tile {
+  filter: brightness(0.78) contrast(1.05) saturate(0.85);
+}
+.leaflet-control-attribution {
+  background: rgba(11, 18, 32, 0.7) !important;
+  color: var(--muted) !important;
+}
+.leaflet-control-attribution a {
+  color: var(--accent) !important;
+}
+
+/* ---------- Brand header ---------- */
+.brand {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--panel);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+.brand__logo {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent), var(--info));
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  color: #04201c;
+  font-size: 1.1rem;
+}
+.brand__title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+.brand__subtitle {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* ---------- Control panel ---------- */
+.panel {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 500;
+  width: 300px;
+  max-width: calc(100vw - 32px);
+  padding: 16px;
+  background: var(--panel);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+.panel__source {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 9px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+.panel__source--live {
+  background: rgba(45, 212, 191, 0.14);
+  color: var(--accent);
+  border: 1px solid rgba(45, 212, 191, 0.35);
+}
+.panel__source--offline {
+  background: rgba(148, 163, 184, 0.14);
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.panel__source--live .dot {
+  animation: blink 1.4s infinite;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.stat {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(2, 6, 23, 0.45);
+  border: 1px solid var(--border);
+}
+.stat__value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.stat__label {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.stat--urgent .stat__value {
+  color: var(--urgent);
+}
+.stat--total .stat__value {
+  color: var(--accent);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.filter {
+  flex: 1 1 auto;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 7px 10px;
+  border-radius: 9px;
+  color: var(--text);
+  background: rgba(2, 6, 23, 0.4);
+  border: 1px solid var(--border);
+  transition: all 0.15s ease;
+}
+.filter:hover {
+  border-color: var(--accent);
+}
+.filter--active {
+  background: var(--accent);
+  color: #04201c;
+  border-color: var(--accent);
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+.legend__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.legend__swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+/* ---------- Evidence panel ---------- */
+.evidence {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 380px;
+  max-width: 100vw;
+  z-index: 700;
+  background: var(--panel-solid);
+  border-left: 1px solid var(--border);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.22s ease;
+}
+.evidence__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: rgba(2, 6, 23, 0.6);
+  color: var(--text);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.evidence__imgwrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: #020617;
+  overflow: hidden;
+}
+.evidence__imgwrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.evidence__badge {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(45, 212, 191, 0.16);
+  color: var(--accent);
+  border: 1px solid rgba(45, 212, 191, 0.4);
+  backdrop-filter: blur(4px);
+}
+.evidence__body {
+  padding: 18px 20px;
+  overflow-y: auto;
+}
+.evidence__body h2 {
+  margin: 10px 0 6px;
+  font-size: 1.3rem;
+  text-transform: capitalize;
+}
+.evidence__score {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.evidence__score strong {
+  color: var(--text);
+}
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.meta__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.84rem;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.meta__key {
+  color: var(--muted);
+}
+.meta__val {
+  text-align: right;
+  font-weight: 600;
+}
+.kvkk-note {
+  margin-top: 16px;
+  font-size: 0.74rem;
+  line-height: 1.5;
+  color: var(--muted);
+  background: rgba(2, 6, 23, 0.5);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+/* ---------- Tags ---------- */
+.tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.tag--info {
+  background: rgba(59, 130, 246, 0.16);
+  color: #93c5fd;
+}
+.tag--warning {
+  background: rgba(245, 158, 11, 0.16);
+  color: #fcd34d;
+}
+.tag--urgent {
+  background: rgba(239, 68, 68, 0.18);
+  color: #fca5a5;
+}
+
+/* ---------- KVKK footer bar ---------- */
+.kvkk-bar {
+  position: absolute;
+  bottom: 14px;
+  left: 16px;
+  z-index: 500;
+  font-size: 0.72rem;
+  color: var(--muted);
+  background: var(--panel);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 7px 14px;
+  box-shadow: var(--shadow);
+  max-width: calc(100vw - 32px);
+}
+.kvkk-bar strong {
+  color: var(--accent);
+}
+
+/* ---------- Leaflet pins (divIcon) ---------- */
+.pin {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  background: var(--info);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+.pin--info {
+  background: var(--info);
+}
+.pin--warning {
+  background: var(--warning);
+}
+.pin--urgent {
+  background: var(--urgent);
+  animation: pulse 1.7s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 13px rgba(239, 68, 68, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+  }
+}
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+@keyframes slideIn {
+  from {
+    transform: translateX(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .panel {
+    width: calc(100vw - 32px);
+    top: auto;
+    bottom: 56px;
+  }
+  .evidence {
+    width: 100vw;
+  }
+}

@@ -87,7 +87,7 @@ func Load() *Config {
 	return &Config{
 		Server: ServerConfig{
 			Host:         envOrDefault("SERVER_HOST", "0.0.0.0"),
-			Port:         envOrDefaultInt("SERVER_PORT", 8080),
+			Port:         serverPort(),
 			ReadTimeout:  time.Duration(envOrDefaultInt("SERVER_READ_TIMEOUT_SECONDS", 15)) * time.Second,
 			WriteTimeout: time.Duration(envOrDefaultInt("SERVER_WRITE_TIMEOUT_SECONDS", 15)) * time.Second,
 			IdleTimeout:  time.Duration(envOrDefaultInt("SERVER_IDLE_TIMEOUT_SECONDS", 60)) * time.Second,
@@ -125,6 +125,18 @@ func Load() *Config {
 			Format: envOrDefault("LOG_FORMAT", "json"),
 		},
 	}
+}
+
+// serverPort resolves the HTTP port. PaaS providers like Render and Heroku
+// inject the port to bind via the PORT env var, so it takes precedence. We then
+// fall back to SERVER_PORT (masterfabric's native variable) and finally 8080.
+func serverPort() int {
+	if val := os.Getenv("PORT"); val != "" {
+		if intVal, err := strconv.Atoi(val); err == nil {
+			return intVal
+		}
+	}
+	return envOrDefaultInt("SERVER_PORT", 8080)
 }
 
 func envOrDefault(key, defaultVal string) string {

@@ -15,8 +15,10 @@ import (
 
 	// Infrastructure
 	infraAuth "github.com/masterfabric-go/masterfabric/internal/infrastructure/auth"
+	detectionInfra "github.com/masterfabric-go/masterfabric/internal/infrastructure/detection"
 	apimgmtHandler "github.com/masterfabric-go/masterfabric/internal/infrastructure/http/handler/apimanagement"
 	auditHandler "github.com/masterfabric-go/masterfabric/internal/infrastructure/http/handler/audit"
+	detectionHandler "github.com/masterfabric-go/masterfabric/internal/infrastructure/http/handler/detection"
 	iamHandler "github.com/masterfabric-go/masterfabric/internal/infrastructure/http/handler/iam"
 	tenantHandler "github.com/masterfabric-go/masterfabric/internal/infrastructure/http/handler/tenant"
 	"github.com/masterfabric-go/masterfabric/internal/infrastructure/http/router"
@@ -28,6 +30,7 @@ import (
 
 	// Application use cases
 	apimgmtUC "github.com/masterfabric-go/masterfabric/internal/application/apimanagement/usecase"
+	detectionUC "github.com/masterfabric-go/masterfabric/internal/application/detection/usecase"
 	iamUC "github.com/masterfabric-go/masterfabric/internal/application/iam/usecase"
 	tenantUC "github.com/masterfabric-go/masterfabric/internal/application/tenant/usecase"
 
@@ -195,6 +198,19 @@ func buildDependencies(
 		Logger: log,
 		DB:     db,
 		Redis:  redisClient,
+	}
+
+	// --- Detections (CityLens core feature) ---
+	// Wired BEFORE the db==nil guard on purpose: the detections endpoint is
+	// served from an embedded, anonymized JSON document and must work even when
+	// there is no database (keeps the public map and the live demo bulletproof).
+	if detectionRepo, err := detectionInfra.NewJSONRepository(os.Getenv("DETECTIONS_PATH"), log); err != nil {
+		log.Error("failed to initialize detections repository", "error", err)
+	} else {
+		deps.DetectionHandler = detectionHandler.NewHandler(
+			detectionUC.NewListDetectionsUseCase(detectionRepo),
+			detectionUC.NewDetectionStatsUseCase(detectionRepo),
+		)
 	}
 
 	if db == nil {
