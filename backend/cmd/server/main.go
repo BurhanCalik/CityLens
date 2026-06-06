@@ -300,14 +300,14 @@ func buildDependencies(
 	// 3. Generic dynamic database handler (automatically performs CRUD operations)
 	backendRegistry := gateway.NewBackendRegistry()
 	dynamicResolver := gateway.NewDynamicHandlerResolver(backendRegistry, log, db)
-	
+
 	// Optional: Register service configurations for HTTP proxying
 	// Example:
 	// dynamicResolver.RegisterServiceConfig("product-service", gateway.ServiceConfig{
 	//     BaseURL: "https://api.example.com/products",
 	//     Headers: map[string]string{"Authorization": "Bearer token"},
 	// })
-	
+
 	// Optional: Register specific handlers for services that need custom logic
 	// Example:
 	// productHandler := handlers.NewProductHandler(...)
@@ -322,7 +322,7 @@ func buildDependencies(
 		log,
 		dynamicResolver, // Dynamic handler resolver (supports registered handlers, HTTP proxy, and generic handling)
 		schemaValidator, // Schema validation interceptor
-		piiMasker,      // PII masking interceptor
+		piiMasker,       // PII masking interceptor
 	)
 
 	return deps

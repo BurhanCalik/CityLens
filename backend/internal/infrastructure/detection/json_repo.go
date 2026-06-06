@@ -4,8 +4,8 @@
 package detection
 
 import (
-	_ "embed"
 	"context"
+	_ "embed"
 	"encoding/json"
 	"fmt"
 	"log/slog"

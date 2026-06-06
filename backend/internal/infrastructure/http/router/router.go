@@ -39,18 +39,18 @@ type Dependencies struct {
 	RBACService iamService.RBACService
 
 	// Handlers
-	IAMHandler    *iamHandler.Handler
-	TenantHandler *tenantHandler.Handler
-	APIMgmtHandler *apimgmtHandler.Handler
-	AuditHandler  *auditHandler.Handler
+	IAMHandler       *iamHandler.Handler
+	TenantHandler    *tenantHandler.Handler
+	APIMgmtHandler   *apimgmtHandler.Handler
+	AuditHandler     *auditHandler.Handler
 	DetectionHandler *detectionHandler.Handler
 
 	// Gateway
 	GatewayPipeline *gateway.Pipeline
 
 	// Repos needed for middleware
-	OrgRepo        tenantRepo.OrgRepository
-	WorkspaceRepo  tenantRepo.WorkspaceRepository
+	OrgRepo       tenantRepo.OrgRepository
+	WorkspaceRepo tenantRepo.WorkspaceRepository
 }
 
 // New creates the root Chi router with all middleware and routes.
@@ -211,7 +211,7 @@ func New(deps Dependencies) *chi.Mux {
 			_, _ = w.Write([]byte(`{"error":"not found","code":404}`))
 			return
 		}
-		
+
 		// For /api/v1 paths, check if gateway pipeline already handled it
 		// If not, return 404 (gateway would have returned response if endpoint existed)
 		w.Header().Set("Content-Type", "application/json")
