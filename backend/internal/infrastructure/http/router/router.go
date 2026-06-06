@@ -14,6 +14,7 @@ import (
 	// Handlers
 	apimgmtHandler "github.com/masterfabric-go/masterfabric/internal/infrastructure/http/handler/apimanagement"
 	auditHandler "github.com/masterfabric-go/masterfabric/internal/infrastructure/http/handler/audit"
+	detectionHandler "github.com/masterfabric-go/masterfabric/internal/infrastructure/http/handler/detection"
 	"github.com/masterfabric-go/masterfabric/internal/infrastructure/http/handler/health"
 	iamHandler "github.com/masterfabric-go/masterfabric/internal/infrastructure/http/handler/iam"
 	tenantHandler "github.com/masterfabric-go/masterfabric/internal/infrastructure/http/handler/tenant"
@@ -42,6 +43,7 @@ type Dependencies struct {
 	TenantHandler *tenantHandler.Handler
 	APIMgmtHandler *apimgmtHandler.Handler
 	AuditHandler  *auditHandler.Handler
+	DetectionHandler *detectionHandler.Handler
 
 	// Gateway
 	GatewayPipeline *gateway.Pipeline
@@ -75,6 +77,15 @@ func New(deps Dependencies) *chi.Mux {
 
 	// Prometheus metrics
 	r.Handle("/metrics", promhttp.Handler())
+
+	// CityLens detections — public, read-only, no JWT/tenant required.
+	// Registered outside the /api/v1 group (like /health) so the web map can
+	// read it directly. Backed by an embedded JSON document, so it works with
+	// no database and survives a cold start.
+	if deps.DetectionHandler != nil {
+		r.Get("/detections", deps.DetectionHandler.List)
+		r.Get("/detections/stats", deps.DetectionHandler.Stats)
+	}
 
 	// API v1 routes
 	r.Route("/api/v1", func(r chi.Router) {
