@@ -1,0 +1,162 @@
+[
+  {
+    "id": "0001",
+    "lat": 41.09311211222291,
+    "lng": 28.80193073708729,
+    "address": "Başak Mah. 5. Etap, Başakşehir/İstanbul",
+    "raw": "0001.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0002",
+    "lat": 41.09464528988056,
+    "lng": 28.80379231287372,
+    "address": "Başak Mah. 5. Etap, Başakşehir/İstanbul",
+    "raw": "0002.jpg",
+    "captured_at": "2019-08"
+  },
+  {
+    "id": "0003",
+    "lat": 41.09162969210757,
+    "lng": 28.80042129196578,
+    "address": "Başak Mah. 4. Etap, Başakşehir/İstanbul",
+    "raw": "0003.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0004",
+    "lat": 41.09401730720487,
+    "lng": 28.79939969161872,
+    "address": "Başak Mah. Akşemsettin Cad., Başakşehir/İstanbul",
+    "raw": "0004.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0005",
+    "lat": 41.08898589151641,
+    "lng": 28.79652871744393,
+    "address": "Güvercintepe Mah., Başakşehir/İstanbul",
+    "raw": "0005.jpg",
+    "captured_at": "2019-08"
+  },
+  {
+    "id": "0006",
+    "lat": 41.08983941783661,
+    "lng": 28.7980905786759,
+    "address": "Güvercintepe Mah., Başakşehir/İstanbul",
+    "raw": "0006.jpg",
+    "captured_at": "2017-02"
+  },
+  {
+    "id": "0007",
+    "lat": 41.08782697747052,
+    "lng": 28.79522740661207,
+    "address": "Güvercintepe Mah. Fatih Cad., Başakşehir/İstanbul",
+    "raw": "0007.jpg",
+    "captured_at": "2023-11"
+  },
+  {
+    "id": "0008",
+    "lat": 41.08951675234756,
+    "lng": 28.79450858186165,
+    "address": "Güvercintepe Mah., Başakşehir/İstanbul",
+    "raw": "0008.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0009",
+    "lat": 41.10118232809292,
+    "lng": 28.79899729238685,
+    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
+    "raw": "0009.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0010",
+    "lat": 41.10249768011856,
+    "lng": 28.80054863583628,
+    "address": "Kayabaşı Mah. Kuzey Cad., Başakşehir/İstanbul",
+    "raw": "0010.jpg",
+    "captured_at": "2019-09"
+  },
+  {
+    "id": "0011",
+    "lat": 41.10003169921237,
+    "lng": 28.79763508557874,
+    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
+    "raw": "0011.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0012",
+    "lat": 41.10203952545689,
+    "lng": 28.7973615400898,
+    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
+    "raw": "0012.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0013",
+    "lat": 41.09224378240822,
+    "lng": 28.78860979141796,
+    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
+    "raw": "0013.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0014",
+    "lat": 41.09344346471397,
+    "lng": 28.79047259108159,
+    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
+    "raw": "0014.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0015",
+    "lat": 41.0910692920064,
+    "lng": 28.78756641482619,
+    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
+    "raw": "0015.jpg",
+    "captured_at": "2023-08"
+  },
+  {
+    "id": "0016",
+    "lat": 41.09300506839981,
+    "lng": 28.78656251855545,
+    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
+    "raw": "0016.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0017",
+    "lat": 41.10368281364815,
+    "lng": 28.80432292998895,
+    "address": "Kayabaşı Mah. Kuzey Cad., Başakşehir/İstanbul",
+    "raw": "0017.jpg",
+    "captured_at": "2020-02"
+  },
+  {
+    "id": "0018",
+    "lat": 41.10481881429737,
+    "lng": 28.80492726398783,
+    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
+    "raw": "0018.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0019",
+    "lat": 41.10208918381655,
+    "lng": 28.80299500551092,
+    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
+    "raw": "0019.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0020",
+    "lat": 41.10428237009221,
+    "lng": 28.80291763998291,
+    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
+    "raw": "0020.jpg",
+    "captured_at": "2020-02"
+  }
+]

@@ -123,9 +123,11 @@ Bu proje uçtan uca **AI-Driven** geliştirildi:
 
 Adım adım kontrol listesi: [`docs/DEPLOY.md`](docs/DEPLOY.md).
 
-## 10. Tekrarlanabilirlik (ödül şartı)
-- Sonuçlar `data/processed/detections.json` + commit geçmişi ile tekrarlanabilir.
-- Demo canlı model çıkarımına bağımlı değildir (embed edilmiş JSON).
+## 10. Sonuçlar & Tekrarlanabilirlik (ödül şartı)
+- Bu repodaki `detections.json`, Başakşehir'de **20 Street View noktasından** Grounding DINO (zero-shot) ile üretilen **11 gerçek trafik levhası tespitidir** (pano başına en iyi tespit; kanıt görselleri gerçek ve anonimleştirilmiş).
+- Severity = **göreli inceleme önceliği** (skora göre): en düşük güvenli tespitler "acil inceleme adayı" (insan-döngüde doğrulama).
+- Sonuçlar `data/processed/detections.json` + commit geçmişi ile **tekrarlanabilir**; demo canlı model çıkarımına bağımlı değildir (embed edilmiş JSON).
+- **Doğruluk yol haritası:** zero-shot skorlar mütevazıdır; HF dataset ile fine-tune + çoklu prompt (`traffic sign. road sign. signpost.`) ile artırılabilir.
 
 ## 11. Takım
 - _(isim/rol — doldurun)_

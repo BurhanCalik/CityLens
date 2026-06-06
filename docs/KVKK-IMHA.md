@@ -22,6 +22,8 @@ Sıralama **bağlayıcıdır**: `fetch → anonymize → detect → export`. `de
 
 Blur, piksel düzeyinde ve **geri döndürülemez** biçimde uygulanır; orijinal pikseller anonim çıktıda yer almaz.
 
+**Ek güvence (kaynakta anonimleştirme):** Google Street View görüntüleri zaten kaynakta (Google tarafından) yüz ve plaka bulanıklaştırılmış olarak servis edilir. CityLens bunun üzerine kendi deface + Grounding DINO pasını ekler — yani anonimleştirme **iki bağımsız katmanda** garanti altına alınır.
+
 ## 4. Veri Minimizasyonu
 - Kalıcı çıktı: yalnızca `data/processed/detections.json` (anonim sonuç) + anonim kanıt görselleri (`web/public/anon/`).
 - Ham görüntüler (`data/raw/`) yalnızca işleme anında diskte tutulur, sonunda silinir.

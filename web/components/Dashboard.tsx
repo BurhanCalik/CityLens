@@ -14,9 +14,9 @@ const MapView = dynamic(() => import("@/components/MapView"), {
 type Filter = "all" | Severity;
 
 const SEVERITY_LABEL: Record<Severity, string> = {
-  info: "Bilgi",
-  warning: "Uyarı",
-  urgent: "Acil",
+  info: "Doğrulandı",
+  warning: "Takip",
+  urgent: "Acil inceleme",
 };
 
 export default function Dashboard() {
@@ -68,15 +68,15 @@ export default function Dashboard() {
           </div>
           <div className="stat stat--urgent">
             <div className="stat__value">{stats.urgent}</div>
-            <div className="stat__label">Acil</div>
+            <div className="stat__label">Acil inceleme</div>
           </div>
           <div className="stat">
             <div className="stat__value">{stats.warning}</div>
-            <div className="stat__label">Uyarı</div>
+            <div className="stat__label">Takip</div>
           </div>
           <div className="stat">
-            <div className="stat__value">{(stats.avgScore * 100).toFixed(0)}%</div>
-            <div className="stat__label">Ort. güven</div>
+            <div className="stat__value">{stats.info}</div>
+            <div className="stat__label">Doğrulandı</div>
           </div>
         </div>
 
@@ -92,17 +92,17 @@ export default function Dashboard() {
           ))}
         </div>
 
-        <div className="legend">
-          <div className="legend__row">
-            <span className="legend__swatch" style={{ background: "#ef4444" }} /> Acil müdahale
+          <div className="legend">
+            <div className="legend__row">
+              <span className="legend__swatch" style={{ background: "#ef4444" }} /> Düşük güven · acil inceleme
+            </div>
+            <div className="legend__row">
+              <span className="legend__swatch" style={{ background: "#f59e0b" }} /> Orta güven · takip
+            </div>
+            <div className="legend__row">
+              <span className="legend__swatch" style={{ background: "#3b82f6" }} /> Yüksek güven · doğrulandı
+            </div>
           </div>
-          <div className="legend__row">
-            <span className="legend__swatch" style={{ background: "#f59e0b" }} /> Uyarı / takip
-          </div>
-          <div className="legend__row">
-            <span className="legend__swatch" style={{ background: "#3b82f6" }} /> Bilgi
-          </div>
-        </div>
       </aside>
 
       {selected && (

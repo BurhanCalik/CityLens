@@ -18,14 +18,22 @@ from datetime import datetime, timezone
 import config
 
 
-def _severity(score: float) -> str:
-    """Confidence-based review priority (human-in-the-loop, responsible AI):
-    low-confidence detections are flagged for URGENT manual verification."""
-    if score >= 0.60:
-        return "info"
-    if score >= 0.45:
+def _severity_by_rank(rank_fraction: float) -> str:
+    """Relative REVIEW PRIORITY within the batch (human-in-the-loop, responsible AI).
+
+    Grounding DINO is zero-shot (no fine-tuning), so absolute confidence is modest
+    and not directly comparable to a trained model. Instead of hard score cutoffs,
+    we RANK detections by confidence and verify the least-confident first — these
+    are the most likely "candidate problems" (missing/toppled/occluded signs):
+      - lowest third  -> urgent  (acil insan doğrulaması — aday)
+      - middle third  -> warning (takip)
+      - highest third -> info    (yüksek güven — doğrulanmış envanter)
+    """
+    if rank_fraction < 0.34:
+        return "urgent"
+    if rank_fraction < 0.67:
         return "warning"
-    return "urgent"
+    return "info"
 
 
 def main() -> int:
@@ -38,20 +46,28 @@ def main() -> int:
     raw = json.loads(config.RAW_DETECTIONS_JSON.read_text(encoding="utf-8"))
     processed_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
-    out = []
-    used_images = set()
+    # One representative pin per pano (the highest-confidence detection per image)
+    # so pins never stack on identical coordinates.
+    best: dict[str, dict] = {}
     for d in raw:
         if d.get("lat") is None or d.get("lng") is None:
-            print(f"skip {d.get('image')} (no coordinates in manifest)")
             continue
+        key = d["image"]
+        if key not in best or float(d["score"]) > float(best[key]["score"]):
+            best[key] = d
 
+    items = sorted(best.values(), key=lambda d: float(d["score"]))
+    total = len(items)
+
+    out = []
+    for rank, d in enumerate(items):
         image_name = d["image"]
         # Copy the anonymized evidence image into the web public folder.
         src = config.ANON_DIR / image_name
-        if src.exists() and image_name not in used_images:
+        if src.exists():
             shutil.copyfile(src, config.WEB_ANON_DIR / image_name)
-            used_images.add(image_name)
 
+        rank_fraction = (rank + 0.5) / total if total else 1.0
         out.append(
             {
                 "lat": round(float(d["lat"]), 6),
@@ -60,7 +76,7 @@ def main() -> int:
                 "score": round(float(d["score"]), 4),
                 "image_url": f"/anon/{image_name}",
                 "address": d.get("address", ""),
-                "severity": _severity(float(d["score"])),
+                "severity": _severity_by_rank(rank_fraction),
                 "captured_at": processed_at,
             }
         )
