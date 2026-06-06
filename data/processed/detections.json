@@ -1,0 +1,102 @@
+[
+  {
+    "lat": 41.093100,
+    "lng": 28.802000,
+    "label": "trafik levhası",
+    "score": 0.94,
+    "image_url": "/anon/0001.svg",
+    "address": "Başak Mah. 5. Etap, Başakşehir/İstanbul",
+    "severity": "warning",
+    "captured_at": "2026-06-06T08:10:00Z"
+  },
+  {
+    "lat": 41.089000,
+    "lng": 28.796500,
+    "label": "trafik levhası",
+    "score": 0.88,
+    "image_url": "/anon/0002.svg",
+    "address": "Güvercintepe Mah., Başakşehir/İstanbul",
+    "severity": "urgent",
+    "captured_at": "2026-06-06T08:12:00Z"
+  },
+  {
+    "lat": 41.097500,
+    "lng": 28.808100,
+    "label": "trafik levhası",
+    "score": 0.91,
+    "image_url": "/anon/0003.svg",
+    "address": "Başak Mah. Akşemsettin Cad., Başakşehir/İstanbul",
+    "severity": "info",
+    "captured_at": "2026-06-06T08:15:00Z"
+  },
+  {
+    "lat": 41.101200,
+    "lng": 28.799000,
+    "label": "trafik levhası",
+    "score": 0.83,
+    "image_url": "/anon/0004.svg",
+    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
+    "severity": "warning",
+    "captured_at": "2026-06-06T08:18:00Z"
+  },
+  {
+    "lat": 41.086500,
+    "lng": 28.810400,
+    "label": "trafik levhası",
+    "score": 0.79,
+    "image_url": "/anon/0005.svg",
+    "address": "Şahintepe Mah., Başakşehir/İstanbul",
+    "severity": "urgent",
+    "captured_at": "2026-06-06T08:21:00Z"
+  },
+  {
+    "lat": 41.092200,
+    "lng": 28.788800,
+    "label": "trafik levhası",
+    "score": 0.90,
+    "image_url": "/anon/0006.svg",
+    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
+    "severity": "info",
+    "captured_at": "2026-06-06T08:24:00Z"
+  },
+  {
+    "lat": 41.099800,
+    "lng": 28.815200,
+    "label": "trafik levhası",
+    "score": 0.86,
+    "image_url": "/anon/0001.svg",
+    "address": "Kayaşehir Mah. 24. Bölge, Başakşehir/İstanbul",
+    "severity": "warning",
+    "captured_at": "2026-06-06T08:27:00Z"
+  },
+  {
+    "lat": 41.084300,
+    "lng": 28.795100,
+    "label": "trafik levhası",
+    "score": 0.81,
+    "image_url": "/anon/0002.svg",
+    "address": "Güvercintepe Mah. Fatih Cad., Başakşehir/İstanbul",
+    "severity": "info",
+    "captured_at": "2026-06-06T08:30:00Z"
+  },
+  {
+    "lat": 41.103500,
+    "lng": 28.804300,
+    "label": "trafik levhası",
+    "score": 0.93,
+    "image_url": "/anon/0003.svg",
+    "address": "Kayabaşı Mah. Kuzey Cad., Başakşehir/İstanbul",
+    "severity": "urgent",
+    "captured_at": "2026-06-06T08:33:00Z"
+  },
+  {
+    "lat": 41.087900,
+    "lng": 28.819700,
+    "label": "trafik levhası",
+    "score": 0.85,
+    "image_url": "/anon/0004.svg",
+    "address": "Şahintepe Mah. Sahil Yolu, Başakşehir/İstanbul",
+    "severity": "warning",
+    "captured_at": "2026-06-06T08:36:00Z"
+  }
+]

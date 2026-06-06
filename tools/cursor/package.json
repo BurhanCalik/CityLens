@@ -1,0 +1,13 @@
+{
+  "name": "citylens-cursor-tools",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Cursor SDK/CLI automations for CityLens (AI Adaptation bonus).",
+  "scripts": {
+    "summarize": "node summarize_detections.mjs"
+  },
+  "dependencies": {
+    "@cursor/sdk": "latest"
+  }
+}
