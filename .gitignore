@@ -1,1 +1,48 @@
+# === Secrets (KVKK / security) ===
 .env
+.env.*
+!.env.example
+
+# === Raw / sensitive imagery — KVKK: NEVER commit raw street imagery ===
+data/raw/
+backend/data/raw/
+ml/data/raw/
+**/raw/
+
+# === Hugging Face model weights (large binaries) ===
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.onnx
+ml/models/
+citylens-hf-models/
+
+# === Python ===
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+ml/.venv/
+*.egg-info/
+
+# === Node / Next.js (web) ===
+node_modules/
+web/node_modules/
+web/.next/
+web/out/
+web/.vercel/
+.vercel/
+
+# === Go (backend) ===
+backend/bin/
+backend/tmp/
+*.exe
+*.test
+*.out
+
+# === OS / editor ===
+.DS_Store
+Thumbs.db
+.idea/
+*.log
