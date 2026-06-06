@@ -101,7 +101,7 @@ Hackathon metni, sadece ürün çıktısını değil geliştirme sürecinin AI-d
 - **Backend ruleset:** `backend/.cursor/rules/*.mdc` dosyaları masterfabric-go katmanlama, naming, error handling, usecase ve handler kurallarını sabitler.
 - **Prompt teknikleri:** Repo-guided geliştirme, küçük dikey dilimlerle ilerleme, önce doğrulama sonra refactor, KVKK kırmızı çizgilerini prompt kısıtı olarak verme ve demo risklerini test çıktılarıyla kapatma yaklaşımı kullanıldı.
 - **Hugging Face AI modeli:** Grounding DINO zero-shot detection ile tabela, reklam panosu ve atık gibi kentsel obje adayları üretildi.
-- **Cursor SDK/CLI bonusu:** `tools/cursor/` klasörü, tespit JSON'undan belediye odaklı özet üretmek için Cursor SDK ve terminal otomasyonu için `cursor-agent` kullanımını belgeler.
+- **Cursor SDK/CLI bonusu:** `tools/cursor/summarize_detections.mjs`, `@cursor/sdk` ile `detections.json` verisini okuyup belediye yöneticisine yönelik `docs/REPORT.md` öncelik raporu üretir; `cursor-agent` ise aynı veri üzerinde terminal otomasyonu örneği olarak belgelenmiştir.
 
 Cursor SDK örneği:
 
@@ -109,8 +109,10 @@ Cursor SDK örneği:
 cd tools/cursor
 pnpm install
 set CURSOR_API_KEY=cursor_...
-pnpm summarize
+pnpm summarize  # docs/REPORT.md üretir
 ```
+
+Script, Cursor TypeScript SDK akışını `Agent.create(...)`, `agent.send(...)` ve `run.wait()` ile kullanır. `CURSOR_API_KEY` terminal ortamından ya da kök `.env` dosyasından okunur.
 
 Cursor CLI örneği:
 
@@ -131,6 +133,7 @@ CityLens/
   web/public/anon/         public demo için seçilmiş anonim kanıt görselleri
   docs/KVKK-IMHA.md        anonimleştirme ve ham veri imha belgesi
   docs/DEPLOY.md           Vercel ve Render canlıya alma rehberi
+  docs/REPORT.md           Cursor SDK ile üretilen belediye öncelik raporu
   tools/cursor/            Cursor SDK ve Cursor CLI bonus dokümantasyonu
 ```
 

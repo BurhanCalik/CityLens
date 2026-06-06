@@ -8,11 +8,11 @@ Bu klasör, CityLens'in **Cursor CLI ve SDK** ile nasıl otomatikleştirildiğin
 ```bash
 cd tools/cursor
 pnpm install                # @cursor/sdk
-export CURSOR_API_KEY=cursor_...    # https://cursor.com/dashboard/integrations
+export CURSOR_API_KEY=cursor_...    # veya kök .env içine CURSOR_API_KEY=...
 pnpm summarize              # -> docs/REPORT.md
 ```
 
-Kullanılan desen (skill'e uygun): tek-atış `Agent.prompt(...)` (otomatik dispose), `CursorAgentError` (başlamadı) ile `result.status === "error"` (çalıştı ama hata) ayrımı ve anlamlı çıkış kodları (1/2/0).
+Kullanılan desen: Cursor TypeScript SDK'daki `Agent.create(...)` -> `agent.send(...)` -> `run.wait()` akışı. Script kök `.env` veya `tools/cursor/.env` içindeki `CURSOR_API_KEY` değerini okuyabilir; `CursorAgentError` (başlamadı) ile `result.status === "error"` (çalıştı ama hata) ayrımı ve anlamlı çıkış kodları (1/2/0) kullanır.
 
 ## 2. Cursor CLI — `cursor-agent`
 Tekrarlanabilir görevleri terminalden çalıştırmak için:
