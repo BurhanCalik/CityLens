@@ -1,0 +1,12 @@
+[
+  { "lat": 41.0931, "lng": 28.8020, "heading": 90, "address": "Başak Mah. 5. Etap, Başakşehir/İstanbul" },
+  { "lat": 41.0890, "lng": 28.7965, "heading": 180, "address": "Güvercintepe Mah., Başakşehir/İstanbul" },
+  { "lat": 41.0975, "lng": 28.8081, "heading": 0, "address": "Başak Mah. Akşemsettin Cad., Başakşehir/İstanbul" },
+  { "lat": 41.1012, "lng": 28.7990, "heading": 270, "address": "Kayabaşı Mah., Başakşehir/İstanbul" },
+  { "lat": 41.0865, "lng": 28.8104, "heading": 45, "address": "Şahintepe Mah., Başakşehir/İstanbul" },
+  { "lat": 41.0922, "lng": 28.7888, "heading": 135, "address": "Ziya Gökalp Mah., Başakşehir/İstanbul" },
+  { "lat": 41.0998, "lng": 28.8152, "heading": 200, "address": "Kayaşehir Mah. 24. Bölge, Başakşehir/İstanbul" },
+  { "lat": 41.0843, "lng": 28.7951, "heading": 300, "address": "Güvercintepe Mah. Fatih Cad., Başakşehir/İstanbul" },
+  { "lat": 41.1035, "lng": 28.8043, "heading": 90, "address": "Kayabaşı Mah. Kuzey Cad., Başakşehir/İstanbul" },
+  { "lat": 41.0879, "lng": 28.8197, "heading": 160, "address": "Şahintepe Mah. Sahil Yolu, Başakşehir/İstanbul" }
+]
