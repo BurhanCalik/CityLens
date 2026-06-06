@@ -22,16 +22,22 @@ import config
 from _model import detect
 
 
-def _deface(src, dst) -> bool:
-    """Runs the deface CLI src -> dst. Returns True on success."""
-    for cmd in (["deface", str(src), "-o", str(dst)], [sys.executable, "-m", "deface", str(src), "-o", str(dst)]):
+def _deface_batch(raw_files: list) -> set:
+    """Runs deface ONCE over all raw files (the model loads a single time, which
+    is far faster for large batches). deface writes '<stem>_anonymized<ext>'
+    next to each input. Returns the set of stems it successfully produced."""
+    if not raw_files:
+        return set()
+    args = [str(f) for f in raw_files]
+    for base in (["deface"], [sys.executable, "-m", "deface"]):
         try:
-            res = subprocess.run(cmd, capture_output=True, text=True, timeout=180)
-            if res.returncode == 0 and dst.exists():
-                return True
+            subprocess.run([*base, "--thresh", "0.2", *args], capture_output=True, text=True, timeout=3600)
         except (FileNotFoundError, subprocess.TimeoutExpired):
             continue
-    return False
+        done = {f.stem for f in raw_files if f.with_name(f.stem + "_anonymized" + f.suffix).exists()}
+        if done:
+            return done
+    return set()
 
 
 def _blur_regions(path) -> int:
@@ -63,26 +69,33 @@ def _blur_regions(path) -> int:
 def main() -> int:
     config.ensure_dirs()
 
-    raw_images = sorted(config.RAW_DIR.glob("*.jpg")) + sorted(config.RAW_DIR.glob("*.png"))
+    raw_images = sorted(p for p in config.RAW_DIR.glob("*.jpg") if not p.stem.endswith("_anonymized"))
+    raw_images += sorted(p for p in config.RAW_DIR.glob("*.png") if not p.stem.endswith("_anonymized"))
     if not raw_images:
         print(f"No raw images in {config.RAW_DIR}. Run fetch.py first.", file=sys.stderr)
         return 1
 
-    deface_ok = 0
+    print(f"deface (batch) on {len(raw_images)} image(s)...")
+    defaced = _deface_batch(raw_images)
+
     for src in raw_images:
         dst = config.ANON_DIR / src.name
-        if _deface(src, dst):
-            deface_ok += 1
+        defaced_path = src.with_name(src.stem + "_anonymized" + src.suffix)
+        if defaced_path.exists():
+            shutil.move(str(defaced_path), str(dst))
         else:
-            # deface unavailable/failed: start from a copy, rely on GD backstop.
-            shutil.copyfile(src, dst)
+            shutil.copyfile(src, dst)  # deface missing -> rely on GD blur pass
         regions = _blur_regions(dst)
-        print(f"[{src.name}] deface={'ok' if dst.exists() else 'no'} gd_blur_regions={regions}")
+        print(f"[{src.name}] deface={'ok' if src.stem in defaced else 'no'} gd_blur_regions={regions}")
+
+    # Clean up any stray deface outputs left in the raw dir.
+    for leftover in config.RAW_DIR.glob("*_anonymized.*"):
+        leftover.unlink()
 
     print(f"\nAnonymized {len(raw_images)} image(s) -> {config.ANON_DIR}")
-    if deface_ok < len(raw_images):
-        print("WARN: deface did not run for every image; the Grounding DINO blur pass still applied.")
-    print(">> Faces & plates blurred irreversibly. Detection may now read data/anon/ only.")
+    if len(defaced) < len(raw_images):
+        print("WARN: deface didn't cover every image; the Grounding DINO blur pass still applied.")
+    print(">> Faces & plates blurred. Detection may now read data/anon/ only (KVKK).")
     return 0
 
 

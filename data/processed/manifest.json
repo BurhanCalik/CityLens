@@ -1,162 +1,418 @@
 [
   {
-    "id": "0001",
-    "lat": 41.09311211222291,
-    "lng": 28.80193073708729,
-    "address": "Başak Mah. 5. Etap, Başakşehir/İstanbul",
-    "raw": "0001.jpg",
+    "id": "0002",
+    "lat": 41.0750327495837,
+    "lng": 28.7842953686784,
+    "address": "Şahintepe Mah., Başakşehir/İstanbul",
+    "raw": "0002.jpg",
     "captured_at": "2025-08"
   },
   {
-    "id": "0002",
-    "lat": 41.09464528988056,
-    "lng": 28.80379231287372,
-    "address": "Başak Mah. 5. Etap, Başakşehir/İstanbul",
-    "raw": "0002.jpg",
-    "captured_at": "2019-08"
-  },
-  {
     "id": "0003",
-    "lat": 41.09162969210757,
-    "lng": 28.80042129196578,
-    "address": "Başak Mah. 4. Etap, Başakşehir/İstanbul",
+    "lat": 41.07512760673657,
+    "lng": 28.78905463843486,
+    "address": "Şahintepe Mah., Başakşehir/İstanbul",
     "raw": "0003.jpg",
     "captured_at": "2025-08"
   },
   {
     "id": "0004",
-    "lat": 41.09401730720487,
-    "lng": 28.79939969161872,
-    "address": "Başak Mah. Akşemsettin Cad., Başakşehir/İstanbul",
+    "lat": 41.07501262022704,
+    "lng": 28.79348240785347,
+    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
     "raw": "0004.jpg",
     "captured_at": "2025-08"
   },
   {
     "id": "0005",
-    "lat": 41.08898589151641,
-    "lng": 28.79652871744393,
-    "address": "Güvercintepe Mah., Başakşehir/İstanbul",
+    "lat": 41.07524449034527,
+    "lng": 28.79772027942834,
+    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
     "raw": "0005.jpg",
-    "captured_at": "2019-08"
+    "captured_at": "2025-08"
   },
   {
     "id": "0006",
-    "lat": 41.08983941783661,
-    "lng": 28.7980905786759,
-    "address": "Güvercintepe Mah., Başakşehir/İstanbul",
+    "lat": 41.07507548651802,
+    "lng": 28.80269256832927,
+    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
     "raw": "0006.jpg",
-    "captured_at": "2017-02"
+    "captured_at": "2022-07"
   },
   {
     "id": "0007",
-    "lat": 41.08782697747052,
-    "lng": 28.79522740661207,
-    "address": "Güvercintepe Mah. Fatih Cad., Başakşehir/İstanbul",
+    "lat": 41.0752390901452,
+    "lng": 28.80687514941712,
+    "address": "Başak Mah., Başakşehir/İstanbul",
     "raw": "0007.jpg",
-    "captured_at": "2023-11"
+    "captured_at": "2025-08"
   },
   {
     "id": "0008",
-    "lat": 41.08951675234756,
-    "lng": 28.79450858186165,
-    "address": "Güvercintepe Mah., Başakşehir/İstanbul",
+    "lat": 41.07474162089095,
+    "lng": 28.81178197135587,
+    "address": "Başak Mah., Başakşehir/İstanbul",
     "raw": "0008.jpg",
-    "captured_at": "2025-08"
-  },
-  {
-    "id": "0009",
-    "lat": 41.10118232809292,
-    "lng": 28.79899729238685,
-    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
-    "raw": "0009.jpg",
-    "captured_at": "2025-08"
-  },
-  {
-    "id": "0010",
-    "lat": 41.10249768011856,
-    "lng": 28.80054863583628,
-    "address": "Kayabaşı Mah. Kuzey Cad., Başakşehir/İstanbul",
-    "raw": "0010.jpg",
-    "captured_at": "2019-09"
-  },
-  {
-    "id": "0011",
-    "lat": 41.10003169921237,
-    "lng": 28.79763508557874,
-    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
-    "raw": "0011.jpg",
-    "captured_at": "2025-08"
-  },
-  {
-    "id": "0012",
-    "lat": 41.10203952545689,
-    "lng": 28.7973615400898,
-    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
-    "raw": "0012.jpg",
-    "captured_at": "2025-08"
+    "captured_at": "2021-11"
   },
   {
     "id": "0013",
-    "lat": 41.09224378240822,
-    "lng": 28.78860979141796,
-    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
+    "lat": 41.0797594161706,
+    "lng": 28.78010436446166,
+    "address": "Şahintepe Mah., Başakşehir/İstanbul",
     "raw": "0013.jpg",
     "captured_at": "2025-08"
   },
   {
     "id": "0014",
-    "lat": 41.09344346471397,
-    "lng": 28.79047259108159,
-    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
+    "lat": 41.0794266002617,
+    "lng": 28.78433610153325,
+    "address": "Şahintepe Mah., Başakşehir/İstanbul",
     "raw": "0014.jpg",
     "captured_at": "2025-08"
   },
   {
     "id": "0015",
-    "lat": 41.0910692920064,
-    "lng": 28.78756641482619,
-    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
+    "lat": 41.07961303132345,
+    "lng": 28.78908398655479,
+    "address": "Şahintepe Mah., Başakşehir/İstanbul",
     "raw": "0015.jpg",
-    "captured_at": "2023-08"
+    "captured_at": "2025-08"
   },
   {
     "id": "0016",
-    "lat": 41.09300506839981,
-    "lng": 28.78656251855545,
+    "lat": 41.07945162080983,
+    "lng": 28.79349432463634,
     "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
     "raw": "0016.jpg",
     "captured_at": "2025-08"
   },
   {
-    "id": "0017",
-    "lat": 41.10368281364815,
-    "lng": 28.80432292998895,
-    "address": "Kayabaşı Mah. Kuzey Cad., Başakşehir/İstanbul",
-    "raw": "0017.jpg",
-    "captured_at": "2020-02"
-  },
-  {
     "id": "0018",
-    "lat": 41.10481881429737,
-    "lng": 28.80492726398783,
-    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
+    "lat": 41.0792466045578,
+    "lng": 28.80270857501613,
+    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
     "raw": "0018.jpg",
     "captured_at": "2025-08"
   },
   {
     "id": "0019",
-    "lat": 41.10208918381655,
-    "lng": 28.80299500551092,
-    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
+    "lat": 41.07951500968888,
+    "lng": 28.80700284378417,
+    "address": "Başak Mah., Başakşehir/İstanbul",
     "raw": "0019.jpg",
+    "captured_at": "2020-09"
+  },
+  {
+    "id": "0025",
+    "lat": 41.08407599975762,
+    "lng": 28.77995254598351,
+    "address": "Şahintepe Mah., Başakşehir/İstanbul",
+    "raw": "0025.jpg",
     "captured_at": "2025-08"
   },
   {
-    "id": "0020",
-    "lat": 41.10428237009221,
-    "lng": 28.80291763998291,
+    "id": "0026",
+    "lat": 41.08403960396409,
+    "lng": 28.78462425505461,
+    "address": "Şahintepe Mah., Başakşehir/İstanbul",
+    "raw": "0026.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0027",
+    "lat": 41.08405692144682,
+    "lng": 28.78897264153763,
+    "address": "Şahintepe Mah., Başakşehir/İstanbul",
+    "raw": "0027.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0029",
+    "lat": 41.08390031855837,
+    "lng": 28.798289067253,
+    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
+    "raw": "0029.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0030",
+    "lat": 41.0840203220469,
+    "lng": 28.80247932353534,
+    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
+    "raw": "0030.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0032",
+    "lat": 41.08397485503585,
+    "lng": 28.81108918688587,
+    "address": "Başak Mah., Başakşehir/İstanbul",
+    "raw": "0032.jpg",
+    "captured_at": "2023-08"
+  },
+  {
+    "id": "0037",
+    "lat": 41.08854542541321,
+    "lng": 28.77995147871777,
+    "address": "Güvercintepe Mah., Başakşehir/İstanbul",
+    "raw": "0037.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0040",
+    "lat": 41.08850285199383,
+    "lng": 28.79358556803367,
+    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
+    "raw": "0040.jpg",
+    "captured_at": "2014-05"
+  },
+  {
+    "id": "0042",
+    "lat": 41.08829373104211,
+    "lng": 28.80262258351826,
+    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
+    "raw": "0042.jpg",
+    "captured_at": "2022-06"
+  },
+  {
+    "id": "0049",
+    "lat": 41.09301604441056,
+    "lng": 28.78011886147336,
+    "address": "Güvercintepe Mah., Başakşehir/İstanbul",
+    "raw": "0049.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0050",
+    "lat": 41.09301249419619,
+    "lng": 28.78489133021182,
+    "address": "Güvercintepe Mah., Başakşehir/İstanbul",
+    "raw": "0050.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0051",
+    "lat": 41.09298689066483,
+    "lng": 28.78901595226846,
+    "address": "Güvercintepe Mah., Başakşehir/İstanbul",
+    "raw": "0051.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0052",
+    "lat": 41.09306430356768,
+    "lng": 28.79369859949876,
+    "address": "Başak Mah., Başakşehir/İstanbul",
+    "raw": "0052.jpg",
+    "captured_at": "2019-08"
+  },
+  {
+    "id": "0053",
+    "lat": 41.09305521158522,
+    "lng": 28.79801063181755,
+    "address": "Başak Mah., Başakşehir/İstanbul",
+    "raw": "0053.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0054",
+    "lat": 41.09297383399181,
+    "lng": 28.80232139059187,
+    "address": "Başak Mah., Başakşehir/İstanbul",
+    "raw": "0054.jpg",
+    "captured_at": "2019-09"
+  },
+  {
+    "id": "0061",
+    "lat": 41.09741837066958,
+    "lng": 28.78016333082613,
     "address": "Kayabaşı Mah., Başakşehir/İstanbul",
-    "raw": "0020.jpg",
-    "captured_at": "2020-02"
+    "raw": "0061.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0062",
+    "lat": 41.09718144648308,
+    "lng": 28.78439889058592,
+    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
+    "raw": "0062.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0063",
+    "lat": 41.09747068632392,
+    "lng": 28.78898153491249,
+    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
+    "raw": "0063.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0064",
+    "lat": 41.09797635272211,
+    "lng": 28.79325972392502,
+    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
+    "raw": "0064.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0065",
+    "lat": 41.09760061991594,
+    "lng": 28.79719764378521,
+    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
+    "raw": "0065.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0073",
+    "lat": 41.1020676577349,
+    "lng": 28.77989731497211,
+    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
+    "raw": "0073.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0074",
+    "lat": 41.10199743082814,
+    "lng": 28.78435282156671,
+    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
+    "raw": "0074.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0075",
+    "lat": 41.10202954267009,
+    "lng": 28.78858622391822,
+    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
+    "raw": "0075.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0076",
+    "lat": 41.10205465330064,
+    "lng": 28.79336999875301,
+    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
+    "raw": "0076.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0077",
+    "lat": 41.10188293310377,
+    "lng": 28.79799240143819,
+    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
+    "raw": "0077.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0078",
+    "lat": 41.10200265276075,
+    "lng": 28.80251960708184,
+    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
+    "raw": "0078.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0086",
+    "lat": 41.10603914270941,
+    "lng": 28.78507053623388,
+    "address": "Kayaşehir Mah., Başakşehir/İstanbul",
+    "raw": "0086.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0087",
+    "lat": 41.10653737100046,
+    "lng": 28.78910497490389,
+    "address": "Kayaşehir Mah., Başakşehir/İstanbul",
+    "raw": "0087.jpg",
+    "captured_at": "2019-08"
+  },
+  {
+    "id": "0088",
+    "lat": 41.10674389526524,
+    "lng": 28.79262083986179,
+    "address": "Kayaşehir Mah., Başakşehir/İstanbul",
+    "raw": "0088.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0089",
+    "lat": 41.10690524678429,
+    "lng": 28.79819418049564,
+    "address": "Kayaşehir Mah., Başakşehir/İstanbul",
+    "raw": "0089.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0090",
+    "lat": 41.10730094427814,
+    "lng": 28.80137512352056,
+    "address": "Kayaşehir Mah., Başakşehir/İstanbul",
+    "raw": "0090.jpg",
+    "captured_at": "2017-02"
+  },
+  {
+    "id": "0091",
+    "lat": 41.10651249589489,
+    "lng": 28.80702738670083,
+    "address": "Kayaşehir Mah., Başakşehir/İstanbul",
+    "raw": "0091.jpg",
+    "captured_at": "2014-05"
+  },
+  {
+    "id": "0098",
+    "lat": 41.1109089068654,
+    "lng": 28.78470465335107,
+    "address": "Kayaşehir Mah., Başakşehir/İstanbul",
+    "raw": "0098.jpg",
+    "captured_at": "2023-08"
+  },
+  {
+    "id": "0099",
+    "lat": 41.11100396962365,
+    "lng": 28.78905588350673,
+    "address": "Kayaşehir Mah., Başakşehir/İstanbul",
+    "raw": "0099.jpg",
+    "captured_at": "2023-12"
+  },
+  {
+    "id": "0100",
+    "lat": 41.1106607580782,
+    "lng": 28.79352767383736,
+    "address": "Kayaşehir Mah., Başakşehir/İstanbul",
+    "raw": "0100.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0101",
+    "lat": 41.1111851397622,
+    "lng": 28.79805865329459,
+    "address": "Kayaşehir Mah., Başakşehir/İstanbul",
+    "raw": "0101.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0102",
+    "lat": 41.11104357098063,
+    "lng": 28.80252129667848,
+    "address": "Kayaşehir Mah., Başakşehir/İstanbul",
+    "raw": "0102.jpg",
+    "captured_at": "2025-08"
+  },
+  {
+    "id": "0103",
+    "lat": 41.11095031512261,
+    "lng": 28.80702151774285,
+    "address": "Kayaşehir Mah., Başakşehir/İstanbul",
+    "raw": "0103.jpg",
+    "captured_at": "2014-05"
+  },
+  {
+    "id": "0104",
+    "lat": 41.1110407205308,
+    "lng": 28.81201414372841,
+    "address": "Kayaşehir Mah., Başakşehir/İstanbul",
+    "raw": "0104.jpg",
+    "captured_at": "2023-08"
   }
 ]

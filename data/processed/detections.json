@@ -1,68 +1,178 @@
 [
   {
-    "lat": 41.089146,
-    "lng": 28.796529,
-    "label": "Reklam panosu",
-    "category": "billboard",
-    "score": 0.5665,
-    "image_url": "/anon/0005.jpg",
-    "address": "Güvercintepe Mah., Başakşehir/İstanbul",
-    "severity": "info",
-    "captured_at": "2026-06-06T11:05:04Z"
-  },
-  {
-    "lat": 41.088826,
-    "lng": 28.796529,
+    "lat": 41.075173,
+    "lng": 28.793482,
     "label": "Trafik levhası",
     "category": "traffic_sign",
-    "score": 0.4356,
-    "image_url": "/anon/0005.jpg",
-    "address": "Güvercintepe Mah., Başakşehir/İstanbul",
+    "score": 0.4186,
+    "image_url": "/anon/0004.jpg",
+    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
     "severity": "info",
-    "captured_at": "2026-06-06T11:05:04Z"
+    "captured_at": "2026-06-06T11:44:31Z"
   },
   {
-    "lat": 41.089839,
-    "lng": 28.798091,
-    "label": "Reklam panosu",
-    "category": "billboard",
-    "score": 0.5055,
-    "image_url": "/anon/0006.jpg",
-    "address": "Güvercintepe Mah., Başakşehir/İstanbul",
-    "severity": "info",
-    "captured_at": "2026-06-06T11:05:04Z"
-  },
-  {
-    "lat": 41.087827,
-    "lng": 28.795227,
+    "lat": 41.074853,
+    "lng": 28.793482,
     "label": "Trafik levhası",
     "category": "traffic_sign",
-    "score": 0.5394,
-    "image_url": "/anon/0007.jpg",
-    "address": "Güvercintepe Mah. Fatih Cad., Başakşehir/İstanbul",
-    "severity": "info",
-    "captured_at": "2026-06-06T11:05:04Z"
-  },
-  {
-    "lat": 41.100032,
-    "lng": 28.797635,
-    "label": "Reklam panosu",
-    "category": "billboard",
-    "score": 0.4164,
-    "image_url": "/anon/0011.jpg",
-    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
-    "severity": "info",
-    "captured_at": "2026-06-06T11:05:04Z"
-  },
-  {
-    "lat": 41.093443,
-    "lng": 28.790473,
-    "label": "Çöp / atık",
-    "category": "garbage",
-    "score": 0.3583,
-    "image_url": "/anon/0014.jpg",
+    "score": 0.3335,
+    "image_url": "/anon/0004.jpg",
     "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
     "severity": "warning",
-    "captured_at": "2026-06-06T11:05:04Z"
+    "captured_at": "2026-06-06T11:44:31Z"
+  },
+  {
+    "lat": 41.075235,
+    "lng": 28.802693,
+    "label": "Çöp / atık",
+    "category": "garbage",
+    "score": 0.6151,
+    "image_url": "/anon/0006.jpg",
+    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
+    "severity": "info",
+    "captured_at": "2026-06-06T11:44:31Z"
+  },
+  {
+    "lat": 41.074915,
+    "lng": 28.802693,
+    "label": "Trafik levhası",
+    "category": "traffic_sign",
+    "score": 0.3108,
+    "image_url": "/anon/0006.jpg",
+    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
+    "severity": "warning",
+    "captured_at": "2026-06-06T11:44:31Z"
+  },
+  {
+    "lat": 41.075239,
+    "lng": 28.806875,
+    "label": "Trafik levhası",
+    "category": "traffic_sign",
+    "score": 0.4263,
+    "image_url": "/anon/0007.jpg",
+    "address": "Başak Mah., Başakşehir/İstanbul",
+    "severity": "info",
+    "captured_at": "2026-06-06T11:44:31Z"
+  },
+  {
+    "lat": 41.079427,
+    "lng": 28.784336,
+    "label": "Trafik levhası",
+    "category": "traffic_sign",
+    "score": 0.4587,
+    "image_url": "/anon/0014.jpg",
+    "address": "Şahintepe Mah., Başakşehir/İstanbul",
+    "severity": "info",
+    "captured_at": "2026-06-06T11:44:31Z"
+  },
+  {
+    "lat": 41.079452,
+    "lng": 28.793494,
+    "label": "Trafik levhası",
+    "category": "traffic_sign",
+    "score": 0.3673,
+    "image_url": "/anon/0016.jpg",
+    "address": "Ziya Gökalp Mah., Başakşehir/İstanbul",
+    "severity": "warning",
+    "captured_at": "2026-06-06T11:44:31Z"
+  },
+  {
+    "lat": 41.079675,
+    "lng": 28.807003,
+    "label": "Reklam panosu",
+    "category": "billboard",
+    "score": 0.4713,
+    "image_url": "/anon/0019.jpg",
+    "address": "Başak Mah., Başakşehir/İstanbul",
+    "severity": "info",
+    "captured_at": "2026-06-06T11:44:31Z"
+  },
+  {
+    "lat": 41.079355,
+    "lng": 28.807003,
+    "label": "Trafik levhası",
+    "category": "traffic_sign",
+    "score": 0.3179,
+    "image_url": "/anon/0019.jpg",
+    "address": "Başak Mah., Başakşehir/İstanbul",
+    "severity": "warning",
+    "captured_at": "2026-06-06T11:44:31Z"
+  },
+  {
+    "lat": 41.08404,
+    "lng": 28.784624,
+    "label": "Trafik levhası",
+    "category": "traffic_sign",
+    "score": 0.3362,
+    "image_url": "/anon/0026.jpg",
+    "address": "Şahintepe Mah., Başakşehir/İstanbul",
+    "severity": "warning",
+    "captured_at": "2026-06-06T11:44:31Z"
+  },
+  {
+    "lat": 41.092974,
+    "lng": 28.802321,
+    "label": "Trafik levhası",
+    "category": "traffic_sign",
+    "score": 0.3112,
+    "image_url": "/anon/0054.jpg",
+    "address": "Başak Mah., Başakşehir/İstanbul",
+    "severity": "warning",
+    "captured_at": "2026-06-06T11:44:31Z"
+  },
+  {
+    "lat": 41.097181,
+    "lng": 28.784399,
+    "label": "Çöp / atık",
+    "category": "garbage",
+    "score": 0.3573,
+    "image_url": "/anon/0062.jpg",
+    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
+    "severity": "warning",
+    "captured_at": "2026-06-06T11:44:31Z"
+  },
+  {
+    "lat": 41.097976,
+    "lng": 28.79326,
+    "label": "Reklam panosu",
+    "category": "billboard",
+    "score": 0.4124,
+    "image_url": "/anon/0064.jpg",
+    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
+    "severity": "info",
+    "captured_at": "2026-06-06T11:44:31Z"
+  },
+  {
+    "lat": 41.10203,
+    "lng": 28.788586,
+    "label": "Trafik levhası",
+    "category": "traffic_sign",
+    "score": 0.3049,
+    "image_url": "/anon/0075.jpg",
+    "address": "Kayabaşı Mah., Başakşehir/İstanbul",
+    "severity": "warning",
+    "captured_at": "2026-06-06T11:44:31Z"
+  },
+  {
+    "lat": 41.111069,
+    "lng": 28.784705,
+    "label": "Çöp / atık",
+    "category": "garbage",
+    "score": 0.6072,
+    "image_url": "/anon/0098.jpg",
+    "address": "Kayaşehir Mah., Başakşehir/İstanbul",
+    "severity": "info",
+    "captured_at": "2026-06-06T11:44:31Z"
+  },
+  {
+    "lat": 41.110749,
+    "lng": 28.784705,
+    "label": "Çöp / atık",
+    "category": "garbage",
+    "score": 0.4465,
+    "image_url": "/anon/0098.jpg",
+    "address": "Kayaşehir Mah., Başakşehir/İstanbul",
+    "severity": "info",
+    "captured_at": "2026-06-06T11:44:31Z"
   }
 ]

@@ -20,9 +20,13 @@ import config
 from _model import detect
 
 
-def _is_uniform(image: Image.Image, box: list[float], threshold: float = 18.0) -> bool:
+def _is_uniform(image: Image.Image, box: list[float], threshold: float = 25.0) -> bool:
     """True if the box region is near-uniform (a blur artifact or flat sky),
-    i.e. low texture -> almost certainly not a real signposted object."""
+    i.e. low texture -> almost certainly not a real signposted object.
+
+    Threshold raised to 25 to reject blurred gray billboard-shaped panels that
+    Street View/anonymization leaves behind (they look like a box but carry no
+    content)."""
     x0, y0, x1, y1 = (int(v) for v in box)
     x0, y0 = max(0, x0), max(0, y0)
     x1, y1 = min(image.width, x1), min(image.height, y1)
